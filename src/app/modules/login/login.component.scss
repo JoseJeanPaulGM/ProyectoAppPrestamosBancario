@@ -1,0 +1,19 @@
+$primary: #18806e;
+
+button {
+  background-color: $primary; /* Green */
+  border: none;
+  color: white;
+  padding: 11.5px 23.5px;
+  margin-right: 0.53rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16.5px;
+  border-radius: 0.5rem;
+  width: 94%;
+}
+button:hover {
+  background-color: #197566; /* Green */
+  color: white;
+}
