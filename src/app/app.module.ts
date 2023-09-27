@@ -10,9 +10,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { LoansListComponent } from './modules/loans-list/loans-list.component';
+import { LoansCreatComponent } from './modules/loans-creat/loans-creat.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, NavbarComponent],
+  declarations: [AppComponent, LoginComponent, NavbarComponent, LoansListComponent, LoansCreatComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
