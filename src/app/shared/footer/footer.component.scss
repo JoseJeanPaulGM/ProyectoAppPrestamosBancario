@@ -1,4 +1,5 @@
-$primary: #18806e;
+$primary: #197566;
+$secondary: #18806e;
 
 button {
   background-color: $primary; /* Green */
@@ -9,11 +10,16 @@ button {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16.5px;
+  font-size: 15px;
   border-radius: 0.5rem;
-  width: 94%;
+  width: 28%;
+
+  &:hover {
+    background-color: $secondary; /* Green */
+    color: white;
+  }
 }
-button:hover {
-  background-color: #197566; /* Green */
-  color: white;
+
+footer {
+  background-color: #e6e6e6;
 }

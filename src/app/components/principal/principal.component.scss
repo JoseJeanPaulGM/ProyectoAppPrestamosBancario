@@ -1,0 +1,24 @@
+.btn-primary {
+  background-color: #197566;
+  border: none;
+  color: white;
+  padding: 11.5px 23.5px;
+  margin-right: 0.53rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14.5px;
+  border-radius: 0.5rem;
+  width: 80%;
+
+  &:hover {
+    background-color: #18806e;
+    color: white;
+  }
+}
+
+.img-steps {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}

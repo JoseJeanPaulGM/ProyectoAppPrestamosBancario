@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
       return true; // El usuario está autenticado y puede acceder al componente "dashboard"
     } else {
       // El usuario no está autenticado, redirige al componente de inicio de sesión "login"
-      return this.router.createUrlTree(['/login']);
+      return this.router.createUrlTree(['/principal']);
     }
   }
 }

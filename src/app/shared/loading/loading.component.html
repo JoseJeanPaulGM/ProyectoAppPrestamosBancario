@@ -1,0 +1,19 @@
+<div *ngIf="spinnerActive">
+  <div class="blocking-overlay"></div>
+  <div
+    class="modal fade show d-flex align-items-center justify-content-center"
+    id="loadingSpinner"
+    tabindex="-1"
+    aria-labelledby="loadingSpinnerLabel"
+    aria-hidden="true"
+  >
+    <div
+      class="spinner-border text-sipiner-primary"
+      style="width: 3rem; height: 3rem"
+      role="status"
+    ></div>
+    <div class="mx-2">
+      <span class="text-sipiner-primary">Cargando...</span>
+    </div>
+  </div>
+</div>

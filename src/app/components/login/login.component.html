@@ -1,0 +1,68 @@
+<div class="container h-100">
+  <div class="row justify-content-sm-center h-100">
+    <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+      <div class="card shadow-lg py-2">
+        <div class="card-body p-5">
+          <h1 class="fs-3 card-title fw-bold mb-3 text-center">
+            Iniciar Sesión
+          </h1>
+          <p class="text-center">
+            <img src="../../../assets/key.png" alt="" width="75px" />
+          </p>
+          <form>
+            <div class="row">
+              <div class="mb-3">
+                <label class="mb-2 text-muted form-label" for="email"
+                  >Usuario</label
+                >
+                <input
+                  id="email"
+                  type="text"
+                  class="form-control"
+                  name="email"
+                  [(ngModel)]="auth.user"
+                  required
+                  autofocus
+                />
+                <div class="invalid-feedback">Usuario es requerido</div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="mb-4">
+                <div class="mb-2 w-100">
+                  <label class="text-muted form-label" for="password"
+                    >Password</label
+                  >
+                  <a href="forgot.html" class="float-end text-dark">
+                    Olvidates tu contraseña?
+                  </a>
+                </div>
+                <input
+                  id="password"
+                  type="password"
+                  class="form-control"
+                  [(ngModel)]="auth.password"
+                  name="password"
+                  required
+                />
+                <div class="invalid-feedback">Password es requerido</div>
+              </div>
+            </div>
+            <div class="row d-flex justify-content-center align-items-center">
+              <button class="btn btn-primary ms-auto" (click)="onSubmit()">
+                Ingresar
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="py-1">
+          <div class="text-center">
+            Aun no eres cliente?
+            <a routerLink="" class="text-dark">Registrate ahora.</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Auth } from '../../interfaces/auth';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -37,5 +38,7 @@ export class LoginComponent {
     // );
     this.authService.setAuthenticated(true);
     this.router.navigate(['/dashboard']);
+    // Ejemplo de mostrar un mensaje de éxito
+    Swal.fire('¡Éxito!', 'La operación se completó con éxito.', 'success');
   }
 }
