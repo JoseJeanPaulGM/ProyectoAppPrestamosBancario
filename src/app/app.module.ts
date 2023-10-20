@@ -16,6 +16,7 @@ import { LoadingComponent } from './shared/loading/loading.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { SolicitudComponent } from './components/solicitud/solicitud.component';
 import { RegistroPrestamistaComponent } from './components/registro-prestamista/registro-prestamista.component';
+import { RegistroJefePrestamistaComponent } from './components/registro-jefe-prestamista/registro-jefe-prestamista.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { RegistroPrestamistaComponent } from './components/registro-prestamista/
     RegistroComponent,
     SolicitudComponent,
     RegistroPrestamistaComponent,
+    RegistroJefePrestamistaComponent,
   ],
   imports: [
     BrowserModule,
