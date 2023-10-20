@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,7 +8,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
-  constructor(private router: Router) {}
+  isAdministrador: boolean = false;
+  isCliente: boolean = false;
+  isPrestamista: boolean = false;
+
+  constructor(private router: Router, private loginService: LoginService) {
+    this.loginService.getIsAdministrador().subscribe((value: boolean) => {
+      this.isAdministrador = value;
+    });
+    this.loginService.getIsCliente().subscribe((value: boolean) => {
+      this.isCliente = value;
+    });
+  }
 
   irAlInicio() {
     this.router.navigate(['/principal']);
@@ -21,8 +33,12 @@ export class NavbarComponent {
     this.router.navigate(['/servicios']);
   }
 
-  irAlContacto() {
-    this.router.navigate(['/contacto']);
+  irAlRegistro() {
+    this.router.navigate(['/registro']);
+  }
+
+  irAlRegistroPrestamista() {
+    this.router.navigate(['/registro-prestamista']);
   }
 
   irAlLogin() {

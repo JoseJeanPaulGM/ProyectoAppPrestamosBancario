@@ -1,0 +1,271 @@
+<div class="container h-100">
+  <div class="row justify-content-sm-center h-100">
+    <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-6 col-sm-9">
+      <div class="card shadow-lg py-2">
+        <div class="card-body p-5">
+          <h1 class="fs-3 card-title mb-3 text-center">
+            Hola
+            <strong class="txt-cliente">{{ usuario.persona.nombres }}</strong
+            >, registra tu solicitud de préstamo...
+          </h1>
+          <p class="text-center">
+            <img src="../../../assets/cash.png" alt="" width="75px" />
+          </p>
+          <div class="row">
+            <div class="col-md-6">
+              <form>
+                <div class="row col-md-12">
+                  <div class="col-lg-6 mb-3">
+                    <label class="mb-2 text-muted form-label" for="rango"
+                      >¿Cuánto quieres?</label
+                    >
+                    <input
+                      type="range"
+                      class="form-range custom-range"
+                      id="rango"
+                      name="rango"
+                      [(ngModel)]="montoSolicitadoRange"
+                      (change)="actualizarValorRango($event)"
+                      (input)="actualizarValorRango($event)"
+                      min="500"
+                      max="10000"
+                      step="500"
+                    />
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="input-group mb-3 mt-4">
+                      <span class="input-group-text">S/.</span>
+                      <input
+                        type="text"
+                        class="form-control text-end"
+                        aria-label="Monto Solicitado en Soles.)"
+                        name="montoSolicitado"
+                        [(ngModel)]="montoSolicitado"
+                        value="500"
+                        (keyup)="formatearMonto($event)"
+                        (change)="formatearMonto($event)"
+                        required
+                      />
+                      <span class="input-group-text">.00</span>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 mb-3">
+                    <label class="mb-2 text-muted form-label" for="email"
+                      >¿Cuántas cuotas?:</label
+                    >
+                    <br />
+                    <div
+                      class="btn-group mt-2"
+                      role="group"
+                      aria-label="Basic radio toggle button group"
+                    >
+                      <input
+                        type="radio"
+                        name="btnradio06"
+                        id="'btnradio06"
+                        autocomplete="off"
+                        class="btn-check"
+                        [(ngModel)]="rbt06cuotas"
+                        (change)="altualizarNumeroCuotas($event)"
+                      />
+                      <label
+                        class="btn btn-outline-success"
+                        for="btnradio06"
+                        (click)="calcularCuota($event)"
+                        [ngStyle]="{
+                          'background-color': rbt06cuotas ? '#18806e' : '#fff',
+                          color: rbt06cuotas ? '#fff' : '#000'
+                        }"
+                        >06</label
+                      >
+                      <input
+                        type="radio"
+                        name="btnradio12"
+                        id="'btnradio12"
+                        autocomplete="off"
+                        class="btn-check"
+                        [(ngModel)]="rbt12cuotas"
+                        (change)="altualizarNumeroCuotas($event)"
+                      />
+                      <label
+                        class="btn btn-outline-success"
+                        for="btnradio12"
+                        (click)="calcularCuota($event)"
+                        [ngStyle]="{
+                          'background-color': rbt12cuotas ? '#18806e' : '#fff',
+                          color: rbt12cuotas ? '#fff' : '#000'
+                        }"
+                        >12</label
+                      >
+                      <input
+                        type="radio"
+                        name="btnradio18"
+                        id="'btnradio18"
+                        autocomplete="off"
+                        class="btn-check"
+                        [(ngModel)]="rbt18cuotas"
+                        (change)="altualizarNumeroCuotas($event)"
+                      />
+                      <label
+                        class="btn btn-outline-success"
+                        for="btnradio18"
+                        (click)="calcularCuota($event)"
+                        [ngStyle]="{
+                          'background-color': rbt18cuotas ? '#18806e' : '#fff',
+                          color: rbt18cuotas ? '#fff' : '#000'
+                        }"
+                        >18</label
+                      >
+                      <input
+                        type="radio"
+                        name="btnradio24"
+                        id="'btnradio24"
+                        autocomplete="off"
+                        class="btn-check"
+                        [(ngModel)]="rbt24cuotas"
+                        (change)="altualizarNumeroCuotas($event)"
+                      />
+                      <label
+                        class="btn btn-outline-success"
+                        for="btnradio24"
+                        (click)="calcularCuota($event)"
+                        [ngStyle]="{
+                          'background-color': rbt24cuotas ? '#18806e' : '#fff',
+                          color: rbt24cuotas ? '#fff' : '#000'
+                        }"
+                        >24</label
+                      >
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <button class="btn btn-primary ms-auto">
+                      Simular Cuotas
+                    </button>
+                  </div>
+                </div>
+                <div class="row col-md-12">
+                  <div class="col-lg-6 mb-3">
+                    <label class="mb-2 text-muted form-label" for="email"
+                      >Entidad Bancaria:</label
+                    >
+                    <select
+                      class="form-select"
+                      aria-label="Default select example"
+                    >
+                      <option selected="1">Banco de Crédito</option>
+                      <option value="2">BBVA Continental</option>
+                      <option value="3">Banco Interbank</option>
+                      <option value="4">Otro Banco</option>
+                    </select>
+                    <div class="invalid-feedback">Usuario es requerido</div>
+                  </div>
+                  <div class="col-lg-6 mb-3">
+                    <label class="mb-2 text-muted form-label" for="email"
+                      >Nro de Cuenta:</label
+                    >
+                    <input
+                      id="email"
+                      type="text"
+                      class="form-control"
+                      name="email"
+                      required
+                      autofocus
+                    />
+                    <div class="invalid-feedback">Usuario es requerido</div>
+                  </div>
+                  <div class="col-lg-12 mb-3">
+                    <label class="mb-2 text-muted form-label" for="email"
+                      >Concepto:</label
+                    >
+                    <input
+                      id="email"
+                      type="text"
+                      class="form-control"
+                      name="email"
+                      [(ngModel)]="usuario.email"
+                      required
+                      autofocus
+                    />
+                    <div class="invalid-feedback">Usuario es requerido</div>
+                  </div>
+                </div>
+                <div class="row col-md-12">
+                  <p class="lorem">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
+                    veniam voluptate deleniti optio, ipsum debitis eaque
+                    voluptas quam ipsam, possimus recusandae accusantium odit!
+                    Pariatur magni in saepe dolorum reprehenderit eius!
+                  </p>
+                </div>
+              </form>
+            </div>
+            <div class="col-md-6">
+              <table class="table caption-top table-sm">
+                <caption>
+                  <h5 class="text-center">Detalle de tu préstamo</h5>
+                </caption>
+                <thead class="text-center">
+                  <tr>
+                    <th scope="col" colspan="1">N° Cuota</th>
+                    <th scope="col">Fecha Vencimiento</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Monto S/.</th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  <tr *ngFor="let cuota of listaCuotasDefault">
+                    <th scope="row">{{ cuota.numeroCuota }}</th>
+                    <td>{{ cuota.fechaVencimiento }}</td>
+                    <td>
+                      <span class="badge rounded-pill text-bg-warning"
+                        >Pendiente</span
+                      >
+                    </td>
+                    <td>{{ cuota.monto }}</td>
+                  </tr>
+                  <!-- <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>
+                      <span class="badge rounded-pill text-bg-warning"
+                        >Pendiente</span
+                      >
+                    </td>
+                    <td>250.00</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Larry</td>
+                    <td>
+                      <span class="badge rounded-pill text-bg-warning"
+                        >Pendiente</span
+                      >
+                    </td>
+                    <td>250.00</td>
+                  </tr> -->
+                </tbody>
+                <tfoot class="text-center">
+                  <tr>
+                    <th scope="col">Total</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">
+                      S/. {{ montoTotalSimulacion.toFixed(2) }}
+                    </th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="py-1">
+          <div class="text-center">
+            Ya eres cliente?
+            <a class="text-dark text-link">¡Solicita tu prestamos!</a>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -20,7 +20,7 @@
                   type="text"
                   class="form-control"
                   name="email"
-                  [(ngModel)]="auth.user"
+                  [(ngModel)]="login.email"
                   required
                   autofocus
                 />
@@ -42,7 +42,7 @@
                   id="password"
                   type="password"
                   class="form-control"
-                  [(ngModel)]="auth.password"
+                  [(ngModel)]="login.contrasena"
                   name="password"
                   required
                 />
@@ -59,7 +59,9 @@
         <div class="py-1">
           <div class="text-center">
             Aun no eres cliente?
-            <a routerLink="" class="text-dark">Registrate ahora.</a>
+            <a class="text-dark text-link" (click)="irAlRegistro()"
+              >Regístrate ahora.</a
+            >
           </div>
         </div>
       </div>

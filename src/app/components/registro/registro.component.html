@@ -1,0 +1,167 @@
+<div class="container h-100">
+  <div class="row justify-content-sm-center h-100">
+    <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-6 col-sm-9">
+      <div class="card shadow-lg py-2">
+        <div class="card-body p-5">
+          <h1 class="fs-3 card-title fw-bold mb-3 text-center">
+            Registro de Clientes
+          </h1>
+          <p class="text-center">
+            <img src="../../../assets/data.png" alt="" width="75px" />
+          </p>
+          <form>
+            <div class="row col-md-12">
+              <div class="col-lg-3 mb-3">
+                <label class="mb-2 text-muted form-label" for="nombres"
+                  >Nombres:</label
+                >
+                <input
+                  id="nombres"
+                  type="text"
+                  class="form-control"
+                  name="nombres"
+                  [(ngModel)]="usuario.persona.nombres"
+                  required
+                  autofocus
+                />
+                <div class="invalid-feedback">Usuario es requerido</div>
+              </div>
+              <div class="col-lg-3 mb-3">
+                <label class="mb-2 text-muted form-label" for="apellidoPaterno"
+                  >Apellido Paterno:</label
+                >
+                <input
+                  id="apellidoPaterno"
+                  type="text"
+                  class="form-control"
+                  name="apellidoPaterno"
+                  [(ngModel)]="usuario.persona.apellidoPaterno"
+                  required
+                  autofocus
+                />
+                <div class="invalid-feedback">Usuario es requerido</div>
+              </div>
+              <div class="col-lg-3 mb-3">
+                <label class="mb-2 text-muted form-label" for="apellidoMaterno"
+                  >Apellido Materno:</label
+                >
+                <input
+                  id="apellidoMaterno"
+                  type="text"
+                  class="form-control"
+                  name="apellidoMaterno"
+                  [(ngModel)]="usuario.persona.apellidoMaterno"
+                  required
+                />
+                <div class="invalid-feedback">Usuario es requerido</div>
+              </div>
+              <div class="col-lg-3 mb-3">
+                <label class="mb-2 text-muted form-label" for="telefono"
+                  >Teléfono:</label
+                >
+                <input
+                  id="telefono"
+                  type="text"
+                  class="form-control"
+                  name="telefono"
+                  [(ngModel)]="usuario.persona.telefono"
+                  required
+                />
+                <div class="invalid-feedback">Usuario es requerido</div>
+              </div>
+            </div>
+            <div class="row col-md-12">
+              <div class="col-lg-3 mb-3">
+                <label class="mb-2 text-muted form-label" for="tipoDocumento"
+                  >Tipo de Documento:</label
+                >
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  [(ngModel)]="usuario.persona.tipoDocumento"
+                  name="tipoDocumento"
+                >
+                  <option selected="1">DNI</option>
+                  <option value="2">CE</option>
+                  <option value="3">RUC</option>
+                </select>
+                <div class="invalid-feedback">Usuario es requerido</div>
+              </div>
+              <div class="col-lg-3 mb-3">
+                <label class="mb-2 text-muted form-label" for="numeroDocumento"
+                  >Nro de Documento:</label
+                >
+                <input
+                  id="numeroDocumento"
+                  type="text"
+                  class="form-control"
+                  name="numeroDocumento"
+                  [(ngModel)]="usuario.persona.numeroDocumento"
+                  required
+                />
+                <div class="invalid-feedback">Usuario es requerido</div>
+              </div>
+              <div class="col-lg-6 mb-3">
+                <label class="mb-2 text-muted form-label" for="direccion"
+                  >Dirección:</label
+                >
+                <input
+                  id="direccion"
+                  type="text"
+                  class="form-control"
+                  name="direccion"
+                  [(ngModel)]="usuario.persona.direccion"
+                  required
+                />
+                <div class="invalid-feedback">Usuario es requerido</div>
+              </div>
+            </div>
+            <div class="row col-md-12">
+              <div class="col-lg-6 mb-3">
+                <label class="mb-2 text-muted form-label" for="email"
+                  >E-mail:</label
+                >
+                <input
+                  id="email"
+                  type="text"
+                  class="form-control"
+                  name="email"
+                  [(ngModel)]="usuario.email"
+                  required
+                />
+                <div class="invalid-feedback">Usuario es requerido</div>
+              </div>
+              <div class="col-lg-3 mb-3">
+                <label class="mb-2 text-muted form-label" for="contrasena"
+                  >Contraseña:</label
+                >
+                <input
+                  id="contrasena"
+                  type="text"
+                  class="form-control"
+                  name="contrasena"
+                  [(ngModel)]="usuario.contrasena"
+                  required
+                />
+                <div class="invalid-feedback">Usuario es requerido</div>
+              </div>
+              <div class="col-lg-3 mb-3">
+                <button class="btn btn-primary ms-auto" (click)="onSubmit()">
+                  Registrar
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="py-1">
+          <div class="text-center">
+            Ya eres cliente?
+            <a class="text-dark text-link" (click)="irASolitudPrestamo()"
+              >¡Solicita tu prestamos!</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

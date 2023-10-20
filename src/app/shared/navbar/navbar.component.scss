@@ -10,3 +10,7 @@ $primary: #197566;
   color: white;
   border-color: $primary;
 }
+
+.dropdown-item {
+  cursor: pointer !important;
+}

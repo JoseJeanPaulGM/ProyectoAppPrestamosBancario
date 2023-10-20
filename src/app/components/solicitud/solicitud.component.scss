@@ -1,0 +1,86 @@
+$primary: #18806e;
+$succes: #197566;
+
+button {
+  background-color: $primary; /* Green */
+  border: none;
+  color: white;
+  padding: 11.5px 23.5px;
+  margin-right: 0.53rem;
+  margin-top: 2.2rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16.5px;
+  border-radius: 0.5rem;
+  width: 100%;
+  height: 47%;
+  &:hover {
+    background-color: #197566 !important; /* Green */
+  }
+  &:show {
+    background-color: #197566 !important; /* Green */
+  }
+  &:active {
+    background-color: #197566 !important; /* Green */
+  }
+  &:focus {
+    background-color: #197566 !important; /* Green */
+  }
+}
+.active {
+  background-color: #18806e !important;
+  color: white !important;
+}
+
+.label-color:active {
+  background-color: #197566 !important;
+}
+
+.btn-outline-success {
+  //   background-color: #18806e !important;
+  border-color: #18806e !important;
+  color: #000;
+  &:hover {
+    background-color: #18806e !important;
+    border-color: #18806e !important;
+    color: #fff !important;
+  }
+  &:show {
+    background-color: #18806e !important;
+    border-color: #18806e !important;
+    color: #fff !important;
+  }
+}
+
+.shadow-lg {
+  box-shadow: 0 0 0 rgb(255, 255, 255) !important;
+  border: white;
+}
+
+.form-label {
+  font-weight: bold;
+}
+
+.txt-cliente {
+  //   font-size: 1.5rem;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.table-dark {
+  background-color: #18806e !important;
+  color: 18806e !important;
+}
+
+.custom-range::-webkit-slider-thumb {
+  background-color: #18806e; /* Cambia el color aquí */
+}
+
+.custom-range::-moz-range-thumb {
+  background-color: #18806e; /* Cambia el color aquí */
+}
+
+.custom-range::-ms-thumb {
+  background-color: #18806e; /* Cambia el color aquí */
+}

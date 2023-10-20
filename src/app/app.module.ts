@@ -7,25 +7,27 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { AuthService } from './services/auth.service';
+import { LoginService } from './services/login.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { LoansListComponent } from './components/loans-list/loans-list.component';
-import { LoansCreatComponent } from './components/loans-creat/loans-creat.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { PrincipalComponent } from './components/principal/principal.component';
 import { LoadingComponent } from './shared/loading/loading.component';
+import { RegistroComponent } from './components/registro/registro.component';
+import { SolicitudComponent } from './components/solicitud/solicitud.component';
+import { RegistroPrestamistaComponent } from './components/registro-prestamista/registro-prestamista.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     NavbarComponent,
-    LoansListComponent,
-    LoansCreatComponent,
     FooterComponent,
     PrincipalComponent,
     LoadingComponent,
+    RegistroComponent,
+    SolicitudComponent,
+    RegistroPrestamistaComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,7 @@ import { LoadingComponent } from './shared/loading/loading.component';
     HttpClientModule,
   ],
 
-  providers: [AuthService],
+  providers: [LoginService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

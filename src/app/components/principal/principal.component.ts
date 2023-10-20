@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { SpinnerService } from '../../services/spinner.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-principal',
@@ -10,7 +11,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
   scrollPosition: number = 0;
   isMobileResolution: boolean = false;
 
-  constructor(private spinnerService: SpinnerService) {
+  constructor(private spinnerService: SpinnerService, private router: Router) {
     this.spinnerService.deactivateSpinner();
   }
   ngAfterViewInit(): void {
@@ -27,5 +28,9 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     //this.spinnerService.activateSpinner();
+  }
+
+  irASolitudPrestamo() {
+    this.router.navigate(['/solicitud']);
   }
 }

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { Auth } from '../../interfaces/auth';
-import { AuthService } from '../../services/auth.service';
+import { Login } from '../../interfaces/login';
+import { LoginService } from '../../services/login.service';
+import { SpinnerService } from 'src/app/services/spinner.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { el } from 'date-fns/locale';
 
 @Component({
   selector: 'app-login',
@@ -10,14 +12,22 @@ import Swal from 'sweetalert2';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  auth: Auth = { user: '', password: '' };
+  login: Login = { email: '', contrasena: '' };
   loginError = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private loginService: LoginService,
+    private router: Router,
+    private spinerService: SpinnerService
+  ) {}
 
   ngOnInit(): void {
-    console.log(this.authService.getAuthenticated());
-    this.authService.setAuthenticated(false);
+    console.log(this.loginService.getAuthenticated());
+    this.loginService.setAuthenticated(false);
+  }
+
+  irAlRegistro() {
+    this.router.navigate(['/registro']);
   }
 
   onSubmit(): void {
@@ -36,9 +46,45 @@ export class LoginComponent {
     //     console.error('Error fetching products:', error);
     //   }
     // );
-    this.authService.setAuthenticated(true);
-    this.router.navigate(['/dashboard']);
-    // Ejemplo de mostrar un mensaje de éxito
-    Swal.fire('¡Éxito!', 'La operación se completó con éxito.', 'success');
+    if (this.login.email.trim() == '' || this.login.contrasena.trim() == '') {
+      this.loginError = true;
+      Swal.fire({
+        title: 'Login fallido',
+        text: 'Los campos no pueden estar vacíos',
+        icon: 'warning',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#197566',
+      });
+      return;
+    } else {
+      if (this.login.email == 'admin' && this.login.contrasena == '123456') {
+        this.loginService.setIsAdministrador(true);
+        this.loginService.setIsCliente(false);
+        this.loginService.setIsPrestamista(false);
+      }
+      if (this.login.email == 'cliente' && this.login.contrasena == '123456') {
+        this.loginService.setIsAdministrador(false);
+        this.loginService.setIsCliente(true);
+        this.loginService.setIsPrestamista(false);
+      }
+      if (
+        this.login.email == 'prestamista' &&
+        this.login.contrasena == '123456'
+      ) {
+        this.loginService.setIsAdministrador(false);
+        this.loginService.setIsCliente(false);
+        this.loginService.setIsPrestamista(true);
+      }
+      this.loginService.setAuthenticated(true);
+      this.router.navigate(['/principal']);
+
+      Swal.fire({
+        title: 'Login exitoso',
+        text: 'Bienvenido a la plataforma de préstamos',
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#197566',
+      });
+    }
   }
 }
