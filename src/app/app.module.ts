@@ -16,7 +16,11 @@ import { LoadingComponent } from './shared/loading/loading.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { SolicitudComponent } from './components/solicitud/solicitud.component';
 import { RegistroPrestamistaComponent } from './components/registro-prestamista/registro-prestamista.component';
+<<<<<<< HEAD
 import { RegistroJefePrestamistaComponent } from './components/registro-jefe-prestamista/registro-jefe-prestamista.component';
+=======
+import { GruposComponent } from './components/grupos/grupos.component';
+>>>>>>> 116599031c05fe258e0d8fa7e7c2f80bc0e6be6c
 
 @NgModule({
   declarations: [
@@ -29,7 +33,11 @@ import { RegistroJefePrestamistaComponent } from './components/registro-jefe-pre
     RegistroComponent,
     SolicitudComponent,
     RegistroPrestamistaComponent,
+<<<<<<< HEAD
     RegistroJefePrestamistaComponent,
+=======
+    GruposComponent,
+>>>>>>> 116599031c05fe258e0d8fa7e7c2f80bc0e6be6c
   ],
   imports: [
     BrowserModule,
