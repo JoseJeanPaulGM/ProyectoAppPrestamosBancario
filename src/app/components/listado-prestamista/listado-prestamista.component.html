@@ -9,8 +9,8 @@
           <p class="text-center">
             <img src="../../../assets/team-lead.png" alt="" width="75px" />
           </p>
-          <div class="col-md-12 my-5">
-            <table class="table caption-top table-sm">
+          <div class="table-responsive">
+            <table class="table caption-top table-sm table-hover">
               <thead class="text-center">
                 <tr>
                   <th scope="col" colspan="1">Id</th>
@@ -19,14 +19,15 @@
                   <th scope="col">Apellidos</th>
                   <th scope="col">Estado</th>
                   <th scope="col">Jefe</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody class="text-center">
                 <tr *ngFor="let jefe of listaPrestamistas">
                   <th scope="row">{{ jefe.idUsuario }}</th>
-                  <td class="text-start">{{ jefe.email }}</td>
-                  <td class="text-start">{{ jefe.persona.nombres }}</td>
-                  <td class="text-start">
+                  <td>{{ jefe.email }}</td>
+                  <td>{{ jefe.persona.nombres }}</td>
+                  <td>
                     {{
                       jefe.persona.apellidoPaterno +
                         " " +
@@ -35,11 +36,25 @@
                   </td>
 
                   <td>
-                    <span class="badge rounded-pill text-bg-warning">{{
+                    <span class="badge rounded-pill text-bg-info">{{
                       jefe.estado == 1 ? "Activo" : "Inhabilitado"
                     }}</span>
                   </td>
                   <td>{{ jefe.usuarioCreacion }}</td>
+                  <td>
+                    <a
+                      class="btn btn-custom-edit text-link"
+                      (click)="modificar(jefe)"
+                    >
+                      <i class="bi bi-pencil"></i>
+                    </a>
+                    <a
+                      class="btn btn-custom-delete text-link"
+                      (click)="eliminar(jefe)"
+                    >
+                      <i class="bi bi-trash"></i>
+                    </a>
+                  </td>
                 </tr>
               </tbody>
             </table>

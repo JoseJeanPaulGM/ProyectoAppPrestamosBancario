@@ -14,32 +14,34 @@ export class NavbarComponent implements OnInit {
   listaMenus: any[] = [];
   isAuthenticated: boolean = false;
   nombreUsuario: string = '';
+  idPerfil: number = 0;
+
   constructor(
     private router: Router,
     private loginService: LoginService,
     private spinnerService: SpinnerService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.loginService.getMenus().subscribe((data: any) => {
       if (data.length > 0) {
         this.listaMenus = data;
       }
     });
     this.loginService.getAuthenticated().subscribe((data: any) => {
-      if (data == false) {
+      if (data === false) {
         this.listaMenus = [];
         this.isAuthenticated = false;
-        console.log(this.isAuthenticated);
+        console.log('Entró False', this.isAuthenticated);
       } else {
         this.isAuthenticated = true;
         let jsonText = localStorage.getItem('login');
-        console.log('nvae', jsonText);
         let login = JSON.parse(jsonText ? jsonText : '');
-        console.log(login);
-        this.nombreUsuario = login.email;
+        this.nombreUsuario = login.idPerfil === 4 ? login.nombres : login.email;
+        this.idPerfil = login.idPerfil;
       }
     });
   }
-  ngOnInit(): void {}
 
   irAlInicio() {
     this.router.navigate(['/principal']);

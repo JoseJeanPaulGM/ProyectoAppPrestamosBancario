@@ -1,6 +1,6 @@
 <div class="container h-100">
   <div class="row justify-content-sm-center h-100">
-    <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-6 col-sm-9">
+    <div class="col-xxl-11 col-xl-11 col-lg-11 col-md-11 col-sm-11">
       <div class="card shadow-lg py-2">
         <div class="card-body p-5">
           <h1 class="fs-3 card-title fw-bold mb-3 text-center">
@@ -9,8 +9,8 @@
           <p class="text-center">
             <img src="../../../assets/team-lead.png" alt="" width="75px" />
           </p>
-          <div class="col-md-12 my-5">
-            <table class="table caption-top table-sm">
+          <div class="table-responsive">
+            <table class="table caption-top table-sm table-hover">
               <thead class="text-center">
                 <tr>
                   <th scope="col" colspan="1">Id</th>
@@ -20,6 +20,7 @@
                   <th scope="col">Estado</th>
                   <th scope="col">Fecha Creación</th>
                   <th scope="col">Usuario Creación</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody class="text-center">
@@ -36,12 +37,26 @@
                   </td>
 
                   <td>
-                    <span class="badge rounded-pill text-bg-warning">{{
+                    <span class="badge rounded-pill text-bg-info">{{
                       jefe.estado == 1 ? "Activo" : "Inhabilitado"
                     }}</span>
                   </td>
                   <td>{{ jefe.fechaCreacion.substring(0, 10) }}</td>
                   <td>{{ jefe.usuarioCreacion }}</td>
+                  <td>
+                    <a
+                      class="btn btn-custom-edit text-link"
+                      (click)="modificar(jefe)"
+                    >
+                      <i class="bi bi-pencil"></i>
+                    </a>
+                    <a
+                      class="btn btn-custom-delete text-link"
+                      (click)="eliminar(jefe)"
+                    >
+                      <i class="bi bi-trash"></i>
+                    </a>
+                  </td>
                 </tr>
               </tbody>
             </table>

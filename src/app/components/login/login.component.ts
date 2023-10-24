@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.loginService.getAuthenticated());
     this.loginService.setAuthenticated(false);
   }
 
@@ -34,10 +33,10 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     this.loginService.login(this.login).subscribe(
       (data) => {
-        if (data.success == true) {
+        if (data.success === true) {
+          localStorage.setItem('login', JSON.stringify(data.data));
           this.loginService.setAuthenticated(true);
           this.loginService.setMenus(data.data.modulos);
-          localStorage.setItem('login', JSON.stringify(data.data));
           Swal.fire({
             title: 'Login exitoso',
             text: 'Bienvenido a la plataforma de préstamos',
@@ -53,6 +52,7 @@ export class LoginComponent implements OnInit {
             this.router.navigateByUrl('/principal');
           }
         } else {
+          this.loginService.setAuthenticated(false);
           Swal.fire({
             title: 'Error',
             text: 'Credenciales incorrectas',
@@ -60,7 +60,6 @@ export class LoginComponent implements OnInit {
             confirmButtonText: 'Aceptar',
             confirmButtonColor: '#197566',
           });
-          this.loginService.setAuthenticated(false);
         }
       },
       (error) => {

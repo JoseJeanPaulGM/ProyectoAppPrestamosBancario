@@ -42,6 +42,14 @@ export class ListadoPrestamistaComponent {
         });
     }
   }
+  modificar(data: any) {
+    console.log(data);
+    //this.router.navigate(['/registro-prestamista', data.idUsuario]);
+  }
+
+  eliminar(data: any) {
+    console.log(data);
+  }
 
   listarPrestamistas() {}
 }
