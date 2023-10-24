@@ -1,18 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/interfaces/usuario';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
-import { SpinnerService } from 'src/app/services/spinner.service';
 import { Empleado } from 'src/app/interfaces/empleado';
 import { EmpleadoService } from 'src/app/services/empleado.service';
+import { SpinnerService } from 'src/app/services/spinner.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-registro-prestamista',
-  templateUrl: './registro-prestamista.component.html',
-  styleUrls: ['./registro-prestamista.component.scss'],
+  selector: 'app-registro-jefe-prestamista',
+  templateUrl: './registro-jefe-prestamista.component.html',
+  styleUrls: ['./registro-jefe-prestamista.component.scss'],
 })
-export class RegistroPrestamistaComponent {
+export class RegistroJefePrestamistaComponent implements OnInit {
   login: any;
   usuario: Empleado = {
     email: '',
@@ -29,7 +29,7 @@ export class RegistroPrestamistaComponent {
       tipoDocumento: 1,
     },
     estado: 1,
-    idPerfil: 3,
+    idPerfil: 2,
     grupo: {
       idGrupo: 0,
       descripcion: '',

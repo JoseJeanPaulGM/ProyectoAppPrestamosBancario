@@ -14,72 +14,37 @@
             >GotaChash</a
           >
         </li>
-        <li class="nav-item dropdown" *ngIf="isAdministrador">
+        <li class="nav-item dropdown" *ngFor="let menu of this.listaMenus">
           <a
-            class="nav-link dropdown-toggle px-2 text-white"
-            href="#"
+            class="nav-link dropdown-toggle px-2 text-white text-link"
             data-bs-toggle="dropdown"
             aria-expanded="true"
-            >Administración</a
+            >{{ menu.descripcion }}</a
           >
-          <ul class="dropdown-menu" data-bs-popper="static">
-            <li>
-              <a class="dropdown-item" (click)="irAlRegistroPrestamista()"
-                >Registrar Prestamista</a
-              >
-            </li>
-            <li>
-              <a class="dropdown-item" (click)="irAlRegistro()"
-                >Consultar Prestamista</a
-              >
-            </li>
-            <li>
-              <a class="dropdown-item" (click)="irAlRegistro()"
-                >Registrar Jefe de Prestamista</a
-              >
-            </li>
-            <li>
-              <a class="dropdown-item" (click)="irAlRegistro()"
-                >Consultar Jefe de Prestamista</a
-              >
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown" *ngIf="isPrestamista">
-          <a
-            class="nav-link dropdown-toggle px-2 text-white"
-            href="#"
-            data-bs-toggle="dropdown"
-            aria-expanded="true"
-            >Préstamos</a
+          <ul
+            class="dropdown-menu"
+            data-bs-popper="static"
+            *ngIf="menu.opciones.length > 0"
           >
-          <ul class="dropdown-menu" data-bs-popper="static">
-            <li><a class="dropdown-item" href="#">Consultar Préstamos</a></li>
-            <li>
-              <a class="dropdown-item" href="#">Historial de Préstamos</a>
+            <li *ngFor="let opcion of menu.opciones">
+              <a class="dropdown-item" [routerLink]="opcion.url">{{
+                opcion.descripcion
+              }}</a>
             </li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown" *ngIf="isAdministrador">
-          <a
-            class="nav-link dropdown-toggle px-2 text-white"
-            href="#"
-            data-bs-toggle="dropdown"
-            aria-expanded="true"
-            >Finanzas</a
-          >
-          <ul class="dropdown-menu" data-bs-popper="static">
-            <li><a class="dropdown-item" href="#">Análisis Financiero</a></li>
           </ul>
         </li>
       </ul>
 
       <div class="text-end">
+        <span class="mx-3" *ngIf="isAuthenticated">
+          <i class="bi bi-person-fill"></i>
+          {{ this.nombreUsuario }}
+        </span>
         <button
           type="button"
           class="btn btn-outline-light me-2"
           (click)="irAlLogin()"
-          *ngIf="!isAdministrador"
+          *ngIf="!isAuthenticated"
         >
           Login
         </button>
@@ -87,7 +52,7 @@
           type="button"
           class="btn btn-warning"
           (click)="irAlRegistro()"
-          *ngIf="!isAdministrador"
+          *ngIf="!isAuthenticated"
         >
           Regístrate
         </button>
@@ -96,7 +61,7 @@
           class="btn btn-light"
           data-bs-toggle="dropdown"
           aria-expanded="false"
-          *ngIf="isAdministrador"
+          *ngIf="isAuthenticated"
         >
           <i class="bi bi-grid"></i>
         </button>
@@ -113,7 +78,7 @@
           </li>
           <li><hr class="dropdown-divider" /></li>
           <li>
-            <a class="dropdown-item" href="#"
+            <a class="dropdown-item text-link" (click)="cerrarSesion()"
               ><i class="bi bi-box-arrow-right mx-2"></i>Cerrar Sessión</a
             >
           </li>

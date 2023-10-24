@@ -8,12 +8,27 @@ import { LoginGuard } from './guards/Login.guard';
 import { RegistroComponent } from './components/registro/registro.component';
 import { SolicitudComponent } from './components/solicitud/solicitud.component';
 import { RegistroPrestamistaComponent } from './components/registro-prestamista/registro-prestamista.component';
+import { RegistroJefePrestamistaComponent } from './components/registro-jefe-prestamista/registro-jefe-prestamista.component';
+import { ListadoGruposComponent } from './components/listado-grupos/listado-grupos.component';
+import { ListadoPrestamistaComponent } from './components/listado-prestamista/listado-prestamista.component';
+import { ListadoJefePrestamistaComponent } from './components/listado-jefe-prestamista/listado-jefe-prestamista.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/principal', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
-  { path: 'registro-prestamista', component: RegistroPrestamistaComponent },
+  { path: 'resgitro-prestamista', component: RegistroPrestamistaComponent },
+  {
+    path: 'registro-jefe-prestamista',
+    component: RegistroJefePrestamistaComponent,
+  },
+  { path: 'listado-grupos', component: ListadoGruposComponent },
+  { path: 'listado-prestamista', component: ListadoPrestamistaComponent },
+  {
+    path: 'listado-jefe-prestamista',
+    component: ListadoJefePrestamistaComponent,
+  },
+
   // { path: 'solicitud', component: SolicitudComponent, canActivate: [LoginGuard] },
   { path: 'solicitud', component: SolicitudComponent },
   { path: 'principal', component: PrincipalComponent },

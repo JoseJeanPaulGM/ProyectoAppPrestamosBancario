@@ -1,0 +1,53 @@
+<div class="container h-100">
+  <div class="row justify-content-sm-center h-100">
+    <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-6 col-sm-9">
+      <div class="card shadow-lg py-2">
+        <div class="card-body p-5">
+          <h1 class="fs-3 card-title fw-bold mb-3 text-center">
+            Listado de Jefes de Prestamistas
+          </h1>
+          <p class="text-center">
+            <img src="../../../assets/team-lead.png" alt="" width="75px" />
+          </p>
+          <div class="col-md-12 my-5">
+            <table class="table caption-top table-sm">
+              <thead class="text-center">
+                <tr>
+                  <th scope="col" colspan="1">Id</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Apellidos</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Fecha Creación</th>
+                  <th scope="col">Usuario Creación</th>
+                </tr>
+              </thead>
+              <tbody class="text-center">
+                <tr *ngFor="let jefe of listaJefesPrestamistas">
+                  <th scope="row">{{ jefe.idUsuario }}</th>
+                  <td>{{ jefe.email }}</td>
+                  <td>{{ jefe.persona.nombres }}</td>
+                  <td>
+                    {{
+                      jefe.persona.apellidoPaterno +
+                        " " +
+                        jefe.persona.apellidoMaterno
+                    }}
+                  </td>
+
+                  <td>
+                    <span class="badge rounded-pill text-bg-warning">{{
+                      jefe.estado == 1 ? "Activo" : "Inhabilitado"
+                    }}</span>
+                  </td>
+                  <td>{{ jefe.fechaCreacion.substring(0, 10) }}</td>
+                  <td>{{ jefe.usuarioCreacion }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

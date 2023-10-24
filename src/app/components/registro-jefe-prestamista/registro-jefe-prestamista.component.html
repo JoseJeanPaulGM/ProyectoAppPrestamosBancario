@@ -4,10 +4,10 @@
       <div class="card shadow-lg py-2">
         <div class="card-body p-5">
           <h1 class="fs-3 card-title fw-bold mb-3 text-center">
-            Registro de Prestamistas
+            Registro de Jefe de Prestamistas
           </h1>
           <p class="text-center">
-            <img src="../../../assets/social.png" alt="" width="75px" />
+            <img src="../../../assets/team-lead.png" alt="" width="75px" />
           </p>
           <form>
             <div class="row col-md-12">
@@ -145,9 +145,25 @@
                 <div class="invalid-feedback">Usuario es requerido</div>
               </div>
               <div class="col-lg-3 mb-3">
-                <button class="btn btn-primary ms-auto" (click)="onSubmit()">
-                  Registrar
-                </button>
+                <label class="mb-2 text-muted form-label" for="contrasena"
+                  >Nombre de Grupo:</label
+                >
+                <input
+                  id="descripcion"
+                  type="text"
+                  class="form-control"
+                  name="descripcion"
+                  [(ngModel)]="usuario.grupo.descripcion"
+                  required
+                />
+                <div class="invalid-feedback">Usuario es requerido</div>
+              </div>
+              <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-lg-3 mb-3">
+                  <button class="btn btn-primary mx-3" (click)="onSubmit()">
+                    Registrar
+                  </button>
+                </div>
               </div>
             </div>
           </form>
