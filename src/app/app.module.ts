@@ -16,10 +16,11 @@ import { LoadingComponent } from './shared/loading/loading.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { SolicitudComponent } from './components/solicitud/solicitud.component';
 import { RegistroPrestamistaComponent } from './components/registro-prestamista/registro-prestamista.component';
-import { RegistroJefePrestamistaComponent } from './components/registro-jefe-prestamista/registro-jefe-prestamista.component';
 import { ListadoGruposComponent } from './components/listado-grupos/listado-grupos.component';
 import { ListadoPrestamistaComponent } from './components/listado-prestamista/listado-prestamista.component';
 import { ListadoJefePrestamistaComponent } from './components/listado-jefe-prestamista/listado-jefe-prestamista.component';
+import { RegistroJefePrestamistaComponent } from './components/registro-jefe-prestamista/registro-jefe-prestamista.component';
+import { GruposComponent } from './components/grupos/grupos.component';
 
 @NgModule({
   declarations: [
@@ -32,10 +33,11 @@ import { ListadoJefePrestamistaComponent } from './components/listado-jefe-prest
     RegistroComponent,
     SolicitudComponent,
     RegistroPrestamistaComponent,
-    RegistroJefePrestamistaComponent,
+    GruposComponent,
     ListadoGruposComponent,
     ListadoPrestamistaComponent,
     ListadoJefePrestamistaComponent,
+    RegistroJefePrestamistaComponent,
   ],
   imports: [
     BrowserModule,
