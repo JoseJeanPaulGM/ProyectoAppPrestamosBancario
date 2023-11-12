@@ -46,7 +46,9 @@
                   <td>
                     <a
                       class="btn btn-custom-edit text-link"
-                      (click)="modificar(jefe)"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalEditar"
+                      (click)="empleadoSeleccionado(jefe)"
                     >
                       <i class="bi bi-pencil"></i>
                     </a>
@@ -60,6 +62,168 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div
+            id="modalEditar"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="modalEditarTitulo"
+            aria-hidden="true"
+            class="modal fade"
+          >
+            <div
+              class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+            >
+              <div class="modal-content">
+                <div class="modal-header justify-content-sm-center">
+                  <h5 class="modal-title" id="modalEditarTitulo">
+                    Editar Jefe de Prestamista
+                  </h5>
+                </div>
+                <form>
+                  <div class="modal-body">
+                    <div class="row col-md-12">
+                      <div class="col-lg-3 mb-3">
+                        <label class="mb-2 text-muted form-label" for="nombres"
+                          >Nombres:</label
+                        >
+                        <input
+                          id="nombres"
+                          type="text"
+                          class="form-control"
+                          name="nombres"
+                          [(ngModel)]="usuario.persona.nombres"
+                          required
+                          autofocus
+                        />
+                        <div class="invalid-feedback">Usuario es requerido</div>
+                      </div>
+                      <div class="col-lg-3 mb-3">
+                        <label
+                          class="mb-2 text-muted form-label"
+                          for="apellidoPaterno"
+                          >Apellido Paterno:</label
+                        >
+                        <input
+                          id="apellidoPaterno"
+                          type="text"
+                          class="form-control"
+                          name="apellidoPaterno"
+                          [(ngModel)]="usuario.persona.apellidoPaterno"
+                          required
+                          autofocus
+                        />
+                        <div class="invalid-feedback">Usuario es requerido</div>
+                      </div>
+                      <div class="col-lg-3 mb-3">
+                        <label
+                          class="mb-2 text-muted form-label"
+                          for="apellidoMaterno"
+                          >Apellido Materno:</label
+                        >
+                        <input
+                          id="apellidoMaterno"
+                          type="text"
+                          class="form-control"
+                          name="apellidoMaterno"
+                          [(ngModel)]="usuario.persona.apellidoMaterno"
+                          required
+                        />
+                        <div class="invalid-feedback">Usuario es requerido</div>
+                      </div>
+                      <div class="col-lg-3 mb-3">
+                        <label class="mb-2 text-muted form-label" for="telefono"
+                          >Teléfono:</label
+                        >
+                        <input
+                          id="telefono"
+                          type="text"
+                          class="form-control"
+                          name="telefono"
+                          [(ngModel)]="usuario.persona.telefono"
+                          required
+                        />
+                        <div class="invalid-feedback">Usuario es requerido</div>
+                      </div>
+                    </div>
+                    <div class="row col-md-12">
+                      <div class="col-lg-3 mb-3">
+                        <label
+                          class="mb-2 text-muted form-label"
+                          for="tipoDocumento"
+                          >Tipo de Documento:</label
+                        >
+                        <select
+                          class="form-select"
+                          aria-label="Default select example"
+                          [(ngModel)]="usuario.persona.tipoDocumento"
+                          name="tipoDocumento"
+                        >
+                          <option selected value="1">DNI</option>
+                          <option value="2">CE</option>
+                        </select>
+                        <div class="invalid-feedback">Usuario es requerido</div>
+                      </div>
+                      <div class="col-lg-3 mb-3">
+                        <label
+                          class="mb-2 text-muted form-label"
+                          for="numeroDocumento"
+                          >Nro de Documento:</label
+                        >
+                        <input
+                          id="numeroDocumento"
+                          type="text"
+                          class="form-control"
+                          name="numeroDocumento"
+                          [(ngModel)]="usuario.persona.numeroDocumento"
+                          required
+                        />
+                        <div class="invalid-feedback">Usuario es requerido</div>
+                      </div>
+                      <div class="col-lg-6 mb-3">
+                        <label
+                          class="mb-2 text-muted form-label"
+                          for="direccion"
+                          >Dirección:</label
+                        >
+                        <input
+                          id="direccion"
+                          type="text"
+                          class="form-control"
+                          name="direccion"
+                          [(ngModel)]="usuario.persona.direccion"
+                          required
+                        />
+                        <div class="invalid-feedback">Usuario es requerido</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer justify-content-center">
+                    <div class="row">
+                      <div class="col-md-6 d-flex justify-content-center">
+                        <button
+                          type="button"
+                          class="btn btn-modal-primary"
+                          (click)="modificar()"
+                        >
+                          Grabar
+                        </button>
+                      </div>
+                      <div class="col-md-6">
+                        <button
+                          #btnCloseModal
+                          type="button"
+                          class="btn btn-modal-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Cancelar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -43,3 +43,38 @@ button {
 .form-label {
   font-weight: bold;
 }
+
+.modal-dialog {
+  max-width: 70%;
+  margin: 1.75rem auto;
+}
+.modal-header {
+  background-color: #197566 !important;
+  color: white !important;
+}
+
+.btn-modal-primary {
+  background-color: #18806e !important;
+  border-color: #18806e !important;
+  color: white !important;
+  &:hover {
+    background-color: #197566 !important;
+    border-color: #197566 !important;
+  }
+  font-size: 0.95rem;
+  font-weight: bold;
+  margin-left: 0.45rem;
+}
+
+.btn-modal-secondary {
+  background-color: #6c757d !important;
+  border-color: #6c757d !important;
+  color: white !important;
+  &:hover {
+    background-color: #565e64 !important;
+    border-color: #565e64 !important;
+  }
+  font-size: 0.95rem;
+  font-weight: bold;
+  margin-left: 0.45rem;
+}
