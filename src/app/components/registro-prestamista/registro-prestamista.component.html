@@ -24,7 +24,7 @@
                   required
                   autofocus
                 />
-                <div class="invalid-feedback">Usuario es requerido</div>
+                <div class="invalid-feedback">Nombre es requerido</div>
               </div>
               <div class="col-lg-3 mb-3">
                 <label class="mb-2 text-muted form-label" for="apellidoPaterno"
@@ -39,7 +39,7 @@
                   required
                   autofocus
                 />
-                <div class="invalid-feedback">Usuario es requerido</div>
+                <div class="invalid-feedback">Apellido paterno es requerido</div>
               </div>
               <div class="col-lg-3 mb-3">
                 <label class="mb-2 text-muted form-label" for="apellidoMaterno"
@@ -53,7 +53,7 @@
                   [(ngModel)]="usuario.persona.apellidoMaterno"
                   required
                 />
-                <div class="invalid-feedback">Usuario es requerido</div>
+                <div class="invalid-feedback">Apellido materno es requerido</div>
               </div>
               <div class="col-lg-3 mb-3">
                 <label class="mb-2 text-muted form-label" for="telefono"
@@ -67,7 +67,7 @@
                   [(ngModel)]="usuario.persona.telefono"
                   required
                 />
-                <div class="invalid-feedback">Usuario es requerido</div>
+                <div class="invalid-feedback">Nro. de teléfono es requerido</div>
               </div>
             </div>
             <div class="row col-md-12">
@@ -84,7 +84,7 @@
                   <option selected value="1">DNI</option>
                   <option value="2">CE</option>
                 </select>
-                <div class="invalid-feedback">Usuario es requerido</div>
+                <div class="invalid-feedback">Tipo de documento es requerido</div>
               </div>
               <div class="col-lg-3 mb-3">
                 <label class="mb-2 text-muted form-label" for="numeroDocumento"
@@ -98,7 +98,7 @@
                   [(ngModel)]="usuario.persona.numeroDocumento"
                   required
                 />
-                <div class="invalid-feedback">Usuario es requerido</div>
+                <div class="invalid-feedback">Nro. documento es requerido</div>
               </div>
               <div class="col-lg-6 mb-3">
                 <label class="mb-2 text-muted form-label" for="direccion"
@@ -112,7 +112,7 @@
                   [(ngModel)]="usuario.persona.direccion"
                   required
                 />
-                <div class="invalid-feedback">Usuario es requerido</div>
+                <div class="invalid-feedback">La dirección es requerida</div>
               </div>
             </div>
             <div class="row col-md-12">
@@ -128,7 +128,7 @@
                   [(ngModel)]="usuario.email"
                   required
                 />
-                <div class="invalid-feedback">Usuario es requerido</div>
+                <div class="invalid-feedback">El email es requerido</div>
               </div>
               <div class="col-lg-3 mb-3">
                 <label class="mb-2 text-muted form-label" for="contrasena"
@@ -142,7 +142,7 @@
                   [(ngModel)]="usuario.contrasena"
                   required
                 />
-                <div class="invalid-feedback">Usuario es requerido</div>
+                <div class="invalid-feedback">La contraseña es requerida</div>
               </div>
               <div class="col-lg-3 mb-3">
                 <button class="btn btn-primary ms-auto" (click)="onSubmit()">

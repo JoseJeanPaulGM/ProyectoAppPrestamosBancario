@@ -24,7 +24,7 @@
                   required
                   autofocus
                 />
-                <div class="invalid-feedback">Usuario es requerido</div>
+                <div class="invalid-feedback"> nombre requerido</div>
               </div>
               <div class="col-lg-3 mb-3">
                 <label class="mb-2 text-muted form-label" for="apellidoPaterno"
@@ -39,7 +39,7 @@
                   required
                   autofocus
                 />
-                <div class="invalid-feedback">Usuario es requerido</div>
+                <div class="invalid-feedback">El apellido Paterno es requerido</div>
               </div>
               <div class="col-lg-3 mb-3">
                 <label class="mb-2 text-muted form-label" for="apellidoMaterno"
@@ -53,7 +53,7 @@
                   [(ngModel)]="usuario.persona.apellidoMaterno"
                   required
                 />
-                <div class="invalid-feedback">Usuario es requerido</div>
+                <div class="invalid-feedback">El apellido Materno es requerido</div>
               </div>
             </div>
             <div class="row col-md-12">
@@ -71,7 +71,7 @@
                   <option value="2">CE</option>
                   <option value="3">RUC</option>
                 </select>
-                <div class="invalid-feedback">Usuario es requerido</div>
+                <div class="invalid-feedback">El Tipo documento es requerido</div>
               </div>
               <div class="col-lg-3 mb-3">
                 <label class="mb-2 text-muted form-label" for="numeroDocumento"
@@ -85,7 +85,7 @@
                   [(ngModel)]="usuario.persona.numeroDocumento"
                   required
                 />
-                <div class="invalid-feedback">Usuario es requerido</div>
+                <div class="invalid-feedback">El Nro de Documento es requerido</div>
               </div>
               <div class="col-lg-6 mb-3">
                 <label class="mb-2 text-muted form-label" for="direccion"
@@ -99,7 +99,7 @@
                   [(ngModel)]="usuario.persona.direccion"
                   required
                 />
-                <div class="invalid-feedback">Usuario es requerido</div>
+                <div class="invalid-feedback">La Direccion es requerido</div>
               </div>
             </div>
             <div class="row col-md-12">
@@ -115,7 +115,7 @@
                   [(ngModel)]="usuario.email"
                   required
                 />
-                <div class="invalid-feedback">Usuario es requerido</div>
+                <div class="invalid-feedback">El E-mail es requerido</div>
               </div>
               <div class="col-lg-3 mb-3">
                 <label class="mb-2 text-muted form-label" for="telefono"
@@ -129,7 +129,7 @@
                   [(ngModel)]="usuario.persona.telefono"
                   required
                 />
-                <div class="invalid-feedback">Usuario es requerido</div>
+                <div class="invalid-feedback">El teléfono es requerido</div>
               </div>
               <div class="col-lg-3 mb-3">
                 <label class="mb-2 text-muted form-label" for="contrasena"
@@ -143,7 +143,7 @@
                   [(ngModel)]="usuario.contrasena"
                   required
                 />
-                <div class="invalid-feedback">Usuario es requerido</div>
+                <div class="invalid-feedback">La contraseña es requerido</div>
               </div>
             </div>
             <div class="row col-md-12">
@@ -162,7 +162,6 @@
                   <option value="3">Banco Interbank</option>
                   <option value="4">Scotiabank</option>
                 </select>
-                <div class="invalid-feedback">Usuario es requerido</div>
               </div>
               <div class="col-lg-4 mb-3">
                 <label class="mb-2 text-muted form-label" for="numeroCuenta"
@@ -176,7 +175,7 @@
                   [(ngModel)]="usuario.numeroCuenta"
                   required
                 />
-                <div class="invalid-feedback">Usuario es requerido</div>
+                <div class="invalid-feedback">Nro de cuenta requerido</div>
               </div>
               <div class="col-lg-3 mb-3">
                 <button class="btn btn-primary ms-auto" (click)="onSubmit()">
