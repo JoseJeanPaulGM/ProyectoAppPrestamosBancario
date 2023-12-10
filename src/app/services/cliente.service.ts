@@ -7,7 +7,9 @@ import { Cliente } from '../interfaces/cliente';
   providedIn: 'root',
 })
 export class ClienteService {
+
   private apiUrl = 'http://localhost:8095/api/v1/usuario';
+
 
   constructor(private http: HttpClient) {}
 
@@ -33,4 +35,5 @@ export class ClienteService {
   getClientesByJefePrestamista(id: number) {
     return this.http.get(this.apiUrl + '/clientes/jefe-prestamista/' + id);
   }
+
 }

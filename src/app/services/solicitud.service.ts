@@ -30,7 +30,11 @@ export class SolicitudService {
     return this.http.get(this.apiUrl + '/jefePrestamista/' + id);
   }
 
-  getSolicitud(id: number): Observable<any> {
+  getSolicitudes() {
+    return this.http.get(this.apiUrl + '/solicitudes');
+  }
+
+  getSolicitud(id: number) {
     return this.http.get(this.apiUrl + '/solicitudes/' + id);
   }
 
@@ -66,3 +70,4 @@ export class SolicitudService {
     return this.http.delete(this.apiUrl + '/eliminar/' + id);
   }
 }
+
