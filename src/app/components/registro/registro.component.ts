@@ -138,7 +138,9 @@ export class RegistroComponent {
         Swal.fire({
           icon: 'error',
           title: 'Error de registro',
-          text: 'No se ha podido registrar.',
+          text: error.error.message,
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#197566',
         });
       }
     );

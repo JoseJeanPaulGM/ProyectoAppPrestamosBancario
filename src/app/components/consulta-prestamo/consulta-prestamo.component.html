@@ -97,8 +97,10 @@
                     Pendiente(S/.)
                   </th>
                   <th scope="col">Nro. Cuotas</th>
-                  <th scope="col">C. Pagadas</th>
-                  <th scope="col">C. Pendientes</th>
+                  <th *ngIf="login.idPerfil !== 2" scope="col">C. Pagadas</th>
+                  <th *ngIf="login.idPerfil !== 2" scope="col">
+                    C. Pendientes
+                  </th>
                   <th scope="col">Estado</th>
                   <th *ngIf="login.idPerfil === 2" scope="col">Rentabilidad</th>
                   <th scope="col">Fecha Registro</th>
@@ -124,13 +126,18 @@
                     {{ montoPagado(prestamo.cuotasPrestamo || []) }}
                   </td>
                   <td *ngIf="login.idPerfil === 2">
-                    {{ montoPendiente(prestamo.cuotasPrestamo || []) }}
+                    {{
+                      montoPendiente(
+                        prestamo.cuotasPrestamo || [],
+                        prestamo.solicitud?.monto || 0
+                      )
+                    }}
                   </td>
                   <td>{{ prestamo.numeroCuotas }}</td>
-                  <td *ngIf="login.idPerfil === 4">
+                  <td *ngIf="login.idPerfil !== 2">
                     {{ cantidadCuotasPagadas(prestamo.cuotasPrestamo || []) }}
                   </td>
-                  <td *ngIf="login.idPerfil === 4">
+                  <td *ngIf="login.idPerfil !== 2">
                     {{
                       cantidadCuotasPendientes(prestamo.cuotasPrestamo || [])
                     }}
@@ -149,7 +156,14 @@
                       {{ prestamo.estado === 1 ? "Aprobado" : "Pagado" }}
                     </span>
                   </td>
-                  <td *ngIf="login.idPerfil === 2">{{ "20% " }}</td>
+                  <td *ngIf="login.idPerfil === 2">
+                    {{
+                      rentabilidad(
+                        prestamo.cuotasPrestamo || [],
+                        prestamo.solicitud?.monto || 0
+                      ) + " %"
+                    }}
+                  </td>
                   <td>
                     {{ prestamo.fechaCreacion?.toString()?.substring(0, 10) }}
                   </td>

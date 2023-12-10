@@ -98,7 +98,7 @@ export class ConsultaCuotasComponent {
       (x) => x.numeroCuota === this.numeroCuotaSeleccionada - 1
     );
     console.log('Cuota Anterior', cuotaAnterior);
-    if (cuotaAnterior?.estado !== 3) {
+    if (cuotaAnterior !== undefined && cuotaAnterior?.estado !== 3) {
       Swal.fire({
         icon: 'error',
         title: 'Error',
@@ -158,7 +158,7 @@ export class ConsultaCuotasComponent {
           ? 3
           : 2;
       this.cuotaSeleccionada.montoPendiente =
-        this.cuotaSeleccionada.montoPendiente! - this.montoAPagar - this.mora;
+        this.cuotaSeleccionada.montoPendiente! - this.montoAPagar + this.mora;
       this.cuotaSeleccionada.usuarioModificacion = this.login.email;
       console.log('Cuota a Pagar =>', this.cuotaSeleccionada);
       this.cuotaPrestamoService
@@ -240,6 +240,10 @@ export class ConsultaCuotasComponent {
       fechaActual > fechaVencimiento
         ? 5.0 * Math.floor(diferencia / (1000 * 60 * 60 * 24))
         : 0.0;
+
+    //Si el monto pendiente es menor al monto de la cuota, la mora es 0
+
+    this.mora = cuota.montoPendiente! < cuota.monto! ? 0.0 : this.mora;
   }
 
   exportarComoPDF() {

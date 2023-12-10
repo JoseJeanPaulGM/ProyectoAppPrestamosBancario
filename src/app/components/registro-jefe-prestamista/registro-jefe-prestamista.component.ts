@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Usuario } from 'src/app/interfaces/usuario';
 import { Router } from '@angular/router';
-import { LoginService } from 'src/app/services/login.service';
 import { Empleado } from 'src/app/interfaces/empleado';
 import { EmpleadoService } from 'src/app/services/empleado.service';
 import { SpinnerService } from 'src/app/services/spinner.service';
@@ -114,6 +112,7 @@ export class RegistroJefePrestamistaComponent implements OnInit {
             confirmButtonText: 'Aceptar',
             confirmButtonColor: '#197566',
           });
+          this.router.navigate(['/listado-jefe-prestamista']);
         } else {
           this.spinerService.deactivateSpinner();
           Swal.fire({

@@ -128,6 +128,7 @@ export class RegistroPrestamistaComponent {
             confirmButtonText: 'Aceptar',
             confirmButtonColor: '#197566',
           });
+          this.router.navigate(['/listado-prestamista']);
         } else {
           this.spinerService.deactivateSpinner();
           Swal.fire({

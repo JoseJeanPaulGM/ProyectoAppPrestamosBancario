@@ -11,6 +11,7 @@ import { EmpleadoService } from 'src/app/services/empleado.service';
 import jsPDF from 'jspdf';
 import autoTable, { Row } from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
+import { CuotaPrestamo } from 'src/app/interfaces/cuota-prestamo';
 
 @Component({
   templateUrl: './consulta-prestamo.component.html',
@@ -23,6 +24,7 @@ export class ConsultaPrestamoComponent {
   filtroEstado: string = '0';
   filtroPrestamista: string = '0';
   PrestamistaSleccionado: any = {};
+  porcentajeInteres: number = 60;
 
   constructor(
     private router: Router,
@@ -192,7 +194,7 @@ export class ConsultaPrestamoComponent {
 
   //cantidad de cuotas pendientes
   cantidadCuotasPendientes(cuotas: any[]) {
-    return cuotas.filter((x) => x.estado === 1).length;
+    return cuotas.filter((x) => x.estado !== 3).length;
   }
 
   // cantidad de cuotas pagadas
@@ -200,14 +202,22 @@ export class ConsultaPrestamoComponent {
     return cuotas.filter((x) => x.estado === 3).length;
   }
 
-  //suma de monto pendiente
-  montoPendiente(cuotas: any[]) {
+  //suma de monto pendiente = monto prestado - monto pagado
+  montoPendiente(cuotas: CuotaPrestamo[], montoPrestado: number) {
     const total = cuotas.reduce(
-      (suma, cuota) => suma + (cuota.montoPendiente ? cuota.montoPendiente : 0),
+      (suma, cuota) => suma + (cuota.montoPagado ? cuota.montoPagado : 0),
       0
     );
-    return total.toFixed(2);
+    return (montoPrestado - total).toFixed(2);
   }
+
+  // montoPendiente(cuotas: any[]) {
+  //   const total = cuotas.reduce(
+  //     (suma, cuota) => suma + (cuota.montoPendiente ? cuota.montoPendiente : 0),
+  //     0
+  //   );
+  //   return total.toFixed(2);
+  // }
 
   //suma de monto pagado
   montoPagado(cuotas: any[]) {
@@ -218,11 +228,31 @@ export class ConsultaPrestamoComponent {
     return total.toFixed(2);
   }
 
+  //Calcualr rentabilidad: La rentabilidad es el interes pagado menos el monto prestado
+  rentabilidad(cuotas: CuotaPrestamo[], montoPrestado: number) {
+    const totalPagado = cuotas.reduce(
+      (suma, cuota) => suma + (cuota.montoPagado ? cuota.montoPagado : 0),
+      0
+    );
+    const rentabilidad: number =
+      (totalPagado / montoPrestado) * this.porcentajeInteres;
+    return rentabilidad.toFixed(2);
+    // return ((rentabilidad * -1 - 100) * -1).toFixed(2);
+    //return rentabilidad >= 0 ? rentabilidad.toFixed(2) : (0.0).toFixed(2);
+  }
+
   //Obtener Prestamista seleccionado
   obtenerPrestamista(idPrestamista: number) {
     return this.listaPrestamistas.find(
       (x) => x.idPrestamista === idPrestamista
     );
+  }
+
+  //Verififcar si el prestamo esta vencido
+  verificarVencimiento(fechaVencimiento: string) {
+    const fechaActual = new Date();
+    const fechaVencimientoDate = new Date(fechaVencimiento);
+    return fechaActual > fechaVencimientoDate;
   }
 
   exportarComoPDF() {
