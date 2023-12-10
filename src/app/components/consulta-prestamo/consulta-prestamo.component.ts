@@ -32,6 +32,7 @@ export class ConsultaPrestamoComponent {
     private loginService: LoginService,
     private empleadoService: EmpleadoService
   ) {
+    // Obtener datos de autentificacion
     this.loginService.getAuthenticated().subscribe((data) => {
       if (data) {
         let jsonText = localStorage.getItem('login');

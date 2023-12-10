@@ -98,7 +98,8 @@
                           required
                           autofocus
                         />
-                        <div class="invalid-feedback">Usuario es requerido</div>
+
+                        <div class="invalid-feedback">Nombre es requerido</div>
                       </div>
                       <div class="col-lg-3 mb-3">
                         <label
@@ -115,7 +116,9 @@
                           required
                           autofocus
                         />
-                        <div class="invalid-feedback">Usuario es requerido</div>
+                        <div class="invalid-feedback">
+                          Apellido paterno es requerido
+                        </div>
                       </div>
                       <div class="col-lg-3 mb-3">
                         <label
@@ -131,7 +134,9 @@
                           [(ngModel)]="usuario.persona.apellidoMaterno"
                           required
                         />
-                        <div class="invalid-feedback">Usuario es requerido</div>
+                        <div class="invalid-feedback">
+                          Apellido materno es requerido
+                        </div>
                       </div>
                       <div class="col-lg-3 mb-3">
                         <label class="mb-2 text-muted form-label" for="telefono"
@@ -145,7 +150,9 @@
                           [(ngModel)]="usuario.persona.telefono"
                           required
                         />
-                        <div class="invalid-feedback">Usuario es requerido</div>
+                        <div class="invalid-feedback">
+                          Teléfono es requerido
+                        </div>
                       </div>
                     </div>
                     <div class="row col-md-12">
@@ -164,7 +171,9 @@
                           <option selected value="1">DNI</option>
                           <option value="2">CE</option>
                         </select>
-                        <div class="invalid-feedback">Usuario es requerido</div>
+                        <div class="invalid-feedback">
+                          Documento es requerido
+                        </div>
                       </div>
                       <div class="col-lg-3 mb-3">
                         <label
@@ -180,7 +189,9 @@
                           [(ngModel)]="usuario.persona.numeroDocumento"
                           required
                         />
-                        <div class="invalid-feedback">Usuario es requerido</div>
+                        <div class="invalid-feedback">
+                          Numero de documento es requerido
+                        </div>
                       </div>
                       <div class="col-lg-6 mb-3">
                         <label
