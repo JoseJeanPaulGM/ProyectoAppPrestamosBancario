@@ -1,11 +1,11 @@
 <div class="container h-100">
   <div class="row justify-content-sm-center h-100">
-    <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-6 col-sm-9">
+    <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10">
       <div class="card shadow-lg py-2">
         <div class="card-body p-5">
           <h1 class="fs-3 card-title mb-3 text-center">
             Hola
-            <strong class="txt-cliente">{{ usuario.persona.nombres }}</strong
+            <strong class="txt-cliente">{{ login.persona.nombres }}</strong
             >, registra tu solicitud de préstamo...
           </h1>
           <p class="text-center">
@@ -23,11 +23,11 @@
                       type="range"
                       class="form-range custom-range"
                       id="rango"
-                      name="rango"
+                      name="montoSolicitadoRange"
                       [(ngModel)]="montoSolicitadoRange"
                       (change)="actualizarValorRango($event)"
                       (input)="actualizarValorRango($event)"
-                      min="500"
+                      min="1000"
                       max="10000"
                       step="500"
                     />
@@ -44,6 +44,7 @@
                         value="500"
                         (keyup)="formatearMonto($event)"
                         (change)="formatearMonto($event)"
+                        disabled
                         required
                       />
                       <span class="input-group-text">.00</span>
@@ -62,7 +63,7 @@
                     >
                       <input
                         type="radio"
-                        name="btnradio06"
+                        name="rbt06cuotas"
                         id="'btnradio06"
                         autocomplete="off"
                         class="btn-check"
@@ -81,8 +82,8 @@
                       >
                       <input
                         type="radio"
-                        name="btnradio12"
-                        id="'btnradio12"
+                        name="rbt12cuotas"
+                        id="'rbt12cuotas"
                         autocomplete="off"
                         class="btn-check"
                         [(ngModel)]="rbt12cuotas"
@@ -100,8 +101,8 @@
                       >
                       <input
                         type="radio"
-                        name="btnradio18"
-                        id="'btnradio18"
+                        name="rbt18cuotas"
+                        id="'rbt18cuotas"
                         autocomplete="off"
                         class="btn-check"
                         [(ngModel)]="rbt18cuotas"
@@ -109,7 +110,7 @@
                       />
                       <label
                         class="btn btn-outline-success"
-                        for="btnradio18"
+                        for="rbt18cuotas"
                         (click)="calcularCuota($event)"
                         [ngStyle]="{
                           'background-color': rbt18cuotas ? '#18806e' : '#fff',
@@ -119,8 +120,8 @@
                       >
                       <input
                         type="radio"
-                        name="btnradio24"
-                        id="'btnradio24"
+                        name="rbt24cuotas"
+                        id="'rbt24cuotas"
                         autocomplete="off"
                         class="btn-check"
                         [(ngModel)]="rbt24cuotas"
@@ -128,7 +129,7 @@
                       />
                       <label
                         class="btn btn-outline-success"
-                        for="btnradio24"
+                        for="rbt24cuotas"
                         (click)="calcularCuota($event)"
                         [ngStyle]="{
                           'background-color': rbt24cuotas ? '#18806e' : '#fff',
@@ -139,132 +140,272 @@
                     </div>
                   </div>
                   <div class="col-lg-6">
-                    <button class="btn btn-primary ms-auto">
+                    <button
+                      class="btn btn-primary ms-auto"
+                      (click)="simularPrestamo()"
+                    >
                       Simular Cuotas
                     </button>
                   </div>
                 </div>
                 <div class="row col-md-12">
-                  <div class="col-lg-6 mb-3">
-                    <label class="mb-2 text-muted form-label" for="email"
+                  <div class="col-lg-9 mb-3">
+                    <label
+                      class="mb-2 text-muted form-label"
+                      for="entidadBancaria"
                       >Entidad Bancaria:</label
                     >
                     <select
                       class="form-select"
                       aria-label="Default select example"
+                      name="entidadBancaria"
+                      disabled
+                      [(ngModel)]="entidadBancaria"
                     >
-                      <option selected="1">Banco de Crédito</option>
-                      <option value="2">BBVA Continental</option>
+                      <option value="1">Banco de Crédito</option>
+                      <option selected value="2">BBVA Continental</option>
                       <option value="3">Banco Interbank</option>
-                      <option value="4">Otro Banco</option>
+                      <option value="4">Scotiabank</option>
                     </select>
-                    <div class="invalid-feedback">Usuario es requerido</div>
                   </div>
-                  <div class="col-lg-6 mb-3">
-                    <label class="mb-2 text-muted form-label" for="email"
+                  <div class="col-lg-3">
+                    <a
+                      class="btn btn-custom-search text-link"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalCuentasBancarias"
+                      (click)="cuentasBancarias()"
+                    >
+                      <i class="bi bi-search"></i>
+                      Buscar
+                    </a>
+                  </div>
+                  <div class="col-lg-12 mb-3">
+                    <label class="mb-2 text-muted form-label" for="cuenta"
                       >Nro de Cuenta:</label
                     >
                     <input
-                      id="email"
+                      id="cuenta"
                       type="text"
                       class="form-control"
-                      name="email"
-                      required
-                      autofocus
+                      name="cuentaBancaria"
+                      disabled
+                      [(ngModel)]="solitud.cuentaBancaria"
                     />
                     <div class="invalid-feedback">Usuario es requerido</div>
                   </div>
-                  <div class="col-lg-12 mb-3">
-                    <label class="mb-2 text-muted form-label" for="email"
+                  <div class="col-lg-6 mb-3">
+                    <label class="mb-2 text-muted form-label" for="concepto"
                       >Concepto:</label
                     >
+                    <select
+                      class="form-select"
+                      aria-label="Default select example"
+                      name="concepto"
+                      [(ngModel)]="solitud.concepto"
+                    >
+                      <option value="1">Préstamo Personal</option>
+                      <option selected value="2">Préstamo Educación</option>
+                      <option value="3">Préstamo Vehicular</option>
+                      <option value="4">Otros fines</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-6 mb-3">
+                    <label class="mb-2 text-muted form-label" for="email"
+                      >Interes(TEA %):</label
+                    >
                     <input
-                      id="email"
+                      id="interes"
                       type="text"
                       class="form-control"
-                      name="email"
-                      [(ngModel)]="usuario.email"
-                      required
-                      autofocus
+                      name="interes"
+                      [(ngModel)]="solitud.interes"
+                      disabled
                     />
-                    <div class="invalid-feedback">Usuario es requerido</div>
                   </div>
-                </div>
-                <div class="row col-md-12">
-                  <p class="lorem">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
-                    veniam voluptate deleniti optio, ipsum debitis eaque
-                    voluptas quam ipsam, possimus recusandae accusantium odit!
-                    Pariatur magni in saepe dolorum reprehenderit eius!
-                  </p>
+                  <div
+                    class="row d-flex justify-content-center align-items-center"
+                  >
+                    <div class="col-lg-7">
+                      <button
+                        class="btn btn-primary ms-auto"
+                        (click)="registrarSolicitud()"
+                      >
+                        Registrar
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </form>
             </div>
             <div class="col-md-6">
-              <table class="table caption-top table-sm">
-                <caption>
-                  <h5 class="text-center">Detalle de tu préstamo</h5>
-                </caption>
-                <thead class="text-center">
-                  <tr>
-                    <th scope="col" colspan="1">N° Cuota</th>
-                    <th scope="col">Fecha Vencimiento</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Monto S/.</th>
-                  </tr>
-                </thead>
-                <tbody class="text-center">
-                  <tr *ngFor="let cuota of listaCuotasDefault">
-                    <th scope="row">{{ cuota.numeroCuota }}</th>
-                    <td>{{ cuota.fechaVencimiento }}</td>
-                    <td>
-                      <span class="badge rounded-pill text-bg-warning"
-                        >Pendiente</span
-                      >
-                    </td>
-                    <td>{{ cuota.monto }}</td>
-                  </tr>
-                  <!-- <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>
-                      <span class="badge rounded-pill text-bg-warning"
-                        >Pendiente</span
-                      >
-                    </td>
-                    <td>250.00</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>
-                      <span class="badge rounded-pill text-bg-warning"
-                        >Pendiente</span
-                      >
-                    </td>
-                    <td>250.00</td>
-                  </tr> -->
-                </tbody>
-                <tfoot class="text-center">
-                  <tr>
-                    <th scope="col">Total</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col">
-                      S/. {{ montoTotalSimulacion.toFixed(2) }}
-                    </th>
-                  </tr>
-                </tfoot>
-              </table>
+              <div class="table-responsive">
+                <table class="table caption-top table-sm">
+                  <caption>
+                    <h5 class="text-center">
+                      Detalle de su simulación de Préstamo
+                    </h5>
+                  </caption>
+                  <thead class="text-center">
+                    <tr>
+                      <th scope="col" colspan="1">N° Cuota</th>
+                      <th scope="col">Fecha Vencimiento</th>
+                      <th scope="col">Estado</th>
+                      <th scope="col">Monto S/.</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-center">
+                    <tr *ngFor="let cuota of listaCuotasDefault">
+                      <th scope="row">{{ cuota.numeroCuota }}</th>
+                      <td>{{ cuota.fechaVencimiento }}</td>
+                      <td>
+                        <span class="badge rounded-pill text-bg-warning"
+                          >Pendiente</span
+                        >
+                      </td>
+                      <td>{{ cuota.monto }}</td>
+                    </tr>
+                  </tbody>
+                  <tfoot class="text-center">
+                    <tr>
+                      <th scope="col">Total</th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
+                      <th scope="col">
+                        S/. {{ montoTotalSimulacion.toFixed(2) }}
+                      </th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div
+            id="modalCuentasBancarias"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="modalCuentasBancariasTitulo"
+            aria-hidden="true"
+            class="modal fade"
+          >
+            <div
+              class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+            >
+              <div class="modal-content">
+                <div class="modal-header justify-content-sm-center">
+                  <h5 class="modal-title" id="modalCuentasBancarias">
+                    Lista de Cuentas Bancaria
+                  </h5>
+                </div>
+                <form>
+                  <div class="modal-body">
+                    <div class="row col-md-12">
+                      <!-- Tabla para mostrar los cuentas que tiene asociado -->
+                      <table class="table caption-top table-sm mx-4">
+                        <thead class="text-center">
+                          <tr>
+                            <th scope="col" colspan="1">Entidad</th>
+                            <th scope="col">Nro Cuenta</th>
+                            <th scope="col"></th>
+                          </tr>
+                        </thead>
+                        <tbody class="text-center">
+                          <tr *ngFor="let banco of listaCuentasBancarias">
+                            <td>
+                              {{
+                                banco.banco === "1"
+                                  ? "Banco de Crédito"
+                                  : banco.banco === "2"
+                                  ? "BBVA Continental"
+                                  : banco.banco === "3"
+                                  ? "Banco Interbank"
+                                  : "Scotiabank"
+                              }}
+                            </td>
+                            <td>{{ banco.numeroCuenta }}</td>
+                            <td>
+                              <a
+                                class="btn btn-custom-check text-link"
+                                (click)="cuentaSeleccionada(banco)"
+                                #btnCloseModal
+                                data-bs-dismiss="modal"
+                              >
+                                Seleccionar
+                              </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="row col-md-12">
+                      <div class="text-center mt-4">
+                        <h5>Agregar otra Cuenta</h5>
+                      </div>
+                    </div>
+                    <div class="row col-md-12">
+                      <div class="col-lg-6 mb-3">
+                        <label class="mb-2 text-muted form-label" for="banco"
+                          >Banco:</label
+                        >
+                        <select
+                          class="form-select"
+                          aria-label="Default select example"
+                          [(ngModel)]="cuenta.banco"
+                          name="banco"
+                        >
+                          <option value="1">Banco de Crédito</option>
+                          <option selected value="2">BBVA Continental</option>
+                          <option value="3">Banco Interbank</option>
+                          <option value="4">Scotiabank</option>
+                        </select>
+                        <div class="invalid-feedback">Usuario es requerido</div>
+                      </div>
+                      <div class="col-lg-6 mb-3">
+                        <label
+                          class="mb-2 text-muted form-label"
+                          for="numeroCuentaNuevo"
+                          >Nro de Cuenta:</label
+                        >
+                        <input
+                          id="numeroCuentaNuevo"
+                          type="text"
+                          class="form-control"
+                          name="numeroCuentaNuevo"
+                          [(ngModel)]="cuenta.numeroCuenta"
+                          required
+                        />
+                        <div class="invalid-feedback">Usuario es requerido</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal-footer justify-content-center">
+                    <div class="row">
+                      <div class="col-md-6 d-flex justify-content-center">
+                        <button
+                          type="button"
+                          class="btn btn-modal-primary"
+                          (click)="agregarCuenta()"
+                        >
+                          Grabar
+                        </button>
+                      </div>
+                      <div class="col-md-6">
+                        <button
+                          #btnCloseModal
+                          type="button"
+                          class="btn btn-modal-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Salir
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-        <!-- <div class="py-1">
-          <div class="text-center">
-            Ya eres cliente?
-            <a class="text-dark text-link">¡Solicita tu prestamos!</a>
-          </div>
-        </div> -->
       </div>
     </div>
   </div>

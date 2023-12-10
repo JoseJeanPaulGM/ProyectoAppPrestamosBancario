@@ -14,6 +14,8 @@ import Swal from 'sweetalert2';
 })
 export class RegistroPrestamistaComponent {
   login: any;
+  tipoDocumento: string = '1';
+
   usuario: Empleado = {
     email: '',
     contrasena: '',
@@ -85,7 +87,7 @@ export class RegistroPrestamistaComponent {
         title: 'Error de validación',
         text: 'Por favor, ingresa un apellido paterno.',
       });
-      return; // Detén la ejecución
+      return;
     }
     if (
       !this.usuario.persona.apellidoMaterno ||
@@ -96,7 +98,19 @@ export class RegistroPrestamistaComponent {
         title: 'Error de validación',
         text: 'Por favor, ingresa un apellido materno.',
       });
-      return; // Detén la ejecución
+      return;
+    }
+
+    if (
+      !this.usuario.persona.numeroDocumento ||
+      this.usuario.persona.numeroDocumento.length < 1
+    ) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error de validación',
+        text: 'Por favor, ingresa un número de documento.',
+      });
+      return;
     }
 
     this.usuario.usuarioCreacion = this.login.email;

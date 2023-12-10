@@ -30,11 +30,11 @@ export class UsuarioService {
   }
 
   createUsuario(usuario: any): Observable<any> {
-    return this.http.post(this.apiUrl + '/usuarios', usuario);
+    return this.http.post(this.apiUrl + '/usuario', usuario);
   }
 
-  updateUsuario(id: number, usuario: any): Observable<any> {
-    return this.http.put(this.apiUrl + '/usuarios/' + id, usuario);
+  updateUsuario(usuario: any): Observable<any> {
+    return this.http.put(this.apiUrl + '/usuario/', usuario);
   }
 
   deleteUsuario(id: number): Observable<any> {

@@ -21,6 +21,10 @@ export class LoginService {
     return this.http.post(this.apiUrl + '/login', credentials);
   }
 
+  obtenerUsuarioPorId(idUsuario: number): Observable<any> {
+    return this.http.get(this.apiUrl + '/obtener/' + idUsuario);
+  }
+
   cargarMenus() {}
 
   getAuthenticated(): Observable<boolean> {

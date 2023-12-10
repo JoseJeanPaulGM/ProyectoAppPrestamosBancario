@@ -1,0 +1,260 @@
+<div class="container h-100">
+  <div class="row justify-content-sm-center h-100">
+    <div
+      [ngClass]="{
+        'col-xxl-9': login.idPerfil === 4,
+        'col-xxl-11': login.idPerfil !== 4
+      }"
+    >
+      <div class="card shadow-lg py-2">
+        <div class="card-body p-5">
+          <h1 class="fs-3 card-title fw-bold mb-3 text-center">
+            Cuotas del préstamo Nro. {{ this.prestamo?.idPrestamo }}
+          </h1>
+          <p class="text-center">
+            <img src="../../../assets/money_amount.png" alt="" width="75px" />
+          </p>
+          <div class="row col-lg-12">
+            <div class="col-lg-6 mb-3 text-right"></div>
+            <div class="col-lg-6 mb-3">
+              <div class="row container-dw">
+                <div class="col-lg-6 container-dw">
+                  <a
+                    class="btn btn-dw-excel text-link"
+                    (click)="exportarComoExcel()"
+                  >
+                    <i class="bi bi-file-earmark-text-fill"> </i>
+                    Excel
+                  </a>
+                  <a
+                    class="btn btn-dw-pdf text-link"
+                    (click)="exportarComoPDF()"
+                  >
+                    <i class="bi bi-file-earmark-text-fill"> </i>
+                    PDF
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table
+              id="tblCuotas"
+              class="table caption-top table-sm table-hover"
+            >
+              <thead class="text-center">
+                <tr>
+                  <th scope="col" colspan="1">Nro.</th>
+                  <th *ngIf="login.idPerfil !== 4" scope="col">Cliente</th>
+
+                  <th scope="col">Monto</th>
+                  <th scope="col">Nro. Cuotas</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Monto Pagado</th>
+                  <th scope="col">Monto Pendiente</th>
+
+                  <th scope="col">Fecha Vencimiento</th>
+                  <th *ngIf="login.idPerfil === 3"></th>
+                </tr>
+              </thead>
+              <tbody class="text-center">
+                <tr *ngFor="let cuotas of this.prestamo?.cuotasPrestamo">
+                  <th scope="row">{{ this.prestamo?.idPrestamo }}</th>
+                  <td *ngIf="login.idPerfil != 4">
+                    {{ this.cliente }}
+                  </td>
+                  <td>{{ "S/. " + cuotas.monto }}</td>
+                  <td>{{ cuotas.numeroCuota }}</td>
+
+                  <td>
+                    <span
+                      class="badge rounded-pill"
+                      [ngClass]="{
+                        'text-bg-warning': cuotas.estado === 1,
+                        'text-bg-dark': cuotas.estado === 2,
+                        'text-bg-info': cuotas.estado === 3
+                      }"
+                    >
+                      {{
+                        cuotas.estado === 1
+                          ? "Pendiente"
+                          : cuotas.estado === 2
+                          ? "Parcialmente"
+                          : "Pagado"
+                      }}
+                    </span>
+                  </td>
+                  <td>{{ "S/. " + cuotas.montoPagado }}</td>
+                  <td>{{ "S/. " + cuotas.montoPendiente }}</td>
+
+                  <td>
+                    {{ cuotas.fechaVencimiento?.toString()?.substring(0, 10) }}
+                  </td>
+                  <td *ngIf="login.idPerfil === 3 && cuotas.estado !== 3">
+                    <a
+                      class="btn btn-custom-edit text-link custom-tooltip"
+                      data-tooltip="Registrar pago"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalPagarCuotas"
+                      (click)="seleccionarCuota(cuotas)"
+                    >
+                      <i class="bi bi-currency-dollar"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div
+        id="modalPagarCuotas"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="modalPagarCuotasTitulo"
+        aria-hidden="true"
+        class="modal fade"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header justify-content-sm-center">
+              <h5 class="modal-title" id="modalPagarCuotas">Pago de Cuota</h5>
+            </div>
+            <form>
+              <div class="modal-body">
+                <div class="row col-md-12">
+                  <div class="text-center my-3">
+                    <h5>Cuota Nro. {{ this.numeroCuotaSeleccionada }}</h5>
+                  </div>
+                </div>
+                <div class="row col-md-12">
+                  <div class="col-lg-4 mb-3">
+                    <label
+                      class="mb-2 text-muted form-label"
+                      for="numeroCuentaNuevo"
+                      >Pestamo:</label
+                    >
+                    <input
+                      id="prestamo"
+                      type="text"
+                      class="form-control"
+                      name="prestamo"
+                      disabled
+                      [value]="this.prestamo?.idPrestamo"
+                    />
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <label
+                      class="mb-2 text-muted form-label"
+                      for="numeroCuentaNuevo"
+                      >Monto:</label
+                    >
+                    <input
+                      id="prestamo"
+                      type="text"
+                      class="form-control"
+                      name="prestamo"
+                      disabled
+                      [value]="this.cuotaSeleccionada.monto"
+                    />
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <label
+                      class="mb-2 text-muted form-label"
+                      for="numeroCuentaNuevo"
+                      >Fecha Vencimiento:</label
+                    >
+                    <input
+                      id="prestamo"
+                      type="text"
+                      class="form-control"
+                      name="prestamo"
+                      disabled
+                      [value]="
+                        this.cuotaSeleccionada.fechaVencimiento
+                          ?.toString()
+                          ?.substring(0, 10)
+                      "
+                    />
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <label
+                      class="mb-2 text-muted form-label"
+                      for="numeroCuentaNuevo"
+                      >Monto Pendiente:</label
+                    >
+                    <input
+                      id="numeroCuentaNuevo"
+                      type="text"
+                      class="form-control"
+                      name="numeroCuentaNuevo"
+                      disabled
+                      [value]="
+                        this.cuotaSeleccionada.montoPendiente?.toFixed(2)
+                      "
+                    />
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <label
+                      class="mb-2 text-muted form-label"
+                      for="numeroCuentaNuevo"
+                      >Mora (S/5 x día):</label
+                    >
+                    <input
+                      id="numeroCuentaNuevo"
+                      type="text"
+                      class="form-control"
+                      name="numeroCuentaNuevo"
+                      disabled
+                      [value]="this.mora + '.00'"
+                    />
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <label
+                      class="mb-2 text-muted form-label"
+                      for="numeroCuentaNuevo"
+                      >Monto Pagar:</label
+                    >
+                    <input
+                      id="montoAPagar"
+                      type="text"
+                      class="form-control"
+                      name="montoAPagar"
+                      required
+                      (keyup)="forrmatoDecimal($event)"
+                      [(ngModel)]="montoAPagar"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="modal-footer justify-content-center">
+                <div class="row">
+                  <div class="col-md-6 d-flex justify-content-center">
+                    <button
+                      type="button"
+                      class="btn btn-modal-primary"
+                      (click)="pagarCuota()"
+                    >
+                      Grabar
+                    </button>
+                  </div>
+                  <div class="col-md-6">
+                    <button
+                      #btnCloseModal
+                      type="button"
+                      class="btn btn-modal-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Salir
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

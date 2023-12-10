@@ -78,3 +78,16 @@ button {
   font-weight: bold;
   margin-left: 0.45rem;
 }
+
+.text-bg-danger {
+  color: rgb(49, 33, 33) !important;
+}
+.table-responsive {
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+  z-index: 1 !important;
+}
+
+.container-de-la-tabla {
+  z-index: 1;
+}

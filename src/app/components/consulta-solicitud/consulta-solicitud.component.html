@@ -1,0 +1,139 @@
+<div class="container h-100">
+  <div class="row justify-content-sm-center h-100">
+    <div class="col-xxl-11 col-xl-11 col-lg-11 col-md-11 col-sm-11">
+      <div class="card shadow-lg py-2">
+        <div class="card-body p-5">
+          <h1 class="fs-3 card-title fw-bold mb-3 text-center">
+            Solicitudes de Préstamos
+          </h1>
+          <p class="text-center">
+            <img src="../../../assets/cash.png" alt="" width="75px" />
+          </p>
+          <div class="row col-lg-12" *ngIf="login.idPerfil != 4">
+            <div class="col-lg-4 mb-3">
+              <label class="mb-2 mx-1 form-label" for="email"
+                >Filtrar por Estado:</label
+              >
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                name="filtroEstado"
+                (change)="filtrarSolicitudes()"
+                [(ngModel)]="filtroEstado"
+              >
+                <option selected value="1">Pendiente</option>
+                <option value="2">Aprobado</option>
+                <option value="3">Rechazado</option>
+              </select>
+              <div class="invalid-feedback">Usuario es requerido</div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table caption-top table-sm table-hover">
+              <thead class="text-center">
+                <tr>
+                  <th scope="col" colspan="1">Id</th>
+                  <th *ngIf="login.idPerfil != 4" scope="col">Cliente</th>
+                  <th scope="col">Concepto</th>
+                  <th scope="col">Monto</th>
+                  <th scope="col">Nro. Cuotas</th>
+                  <th scope="col">Nro. Cuenta</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Fecha Creación</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody class="text-center">
+                <tr>
+                  <td *ngIf="listaSolicitudes.length === 0" colspan="9">
+                    <div>No se encontraron datos para mostrar.</div>
+                  </td>
+                </tr>
+                <tr *ngFor="let solicitud of listaSolicitudes">
+                  <th scope="row">{{ solicitud.idSolicitud }}</th>
+                  <td *ngIf="login.idPerfil != 4">
+                    {{ solicitud.usuarioCreacion }}
+                  </td>
+                  <td>{{ solicitud.concepto }}</td>
+                  <td>{{ "S/. " + solicitud.monto }}</td>
+                  <td>{{ solicitud.cantidadCuotas }}</td>
+                  <td>{{ solicitud.cuentaBancaria }}</td>
+                  <td>
+                    <span
+                      class="badge rounded-pill"
+                      [ngClass]="{
+                        'text-bg-warning': solicitud.estado == 1,
+                        'text-bg-info': solicitud.estado == 2,
+                        'text-bg-danger':
+                          solicitud.estado != 1 && solicitud.estado != 2
+                      }"
+                    >
+                      {{
+                        solicitud.estado == 1
+                          ? "Pendiente"
+                          : solicitud.estado == 2
+                          ? "Aprobado"
+                          : "Rechazado"
+                      }}
+                    </span>
+                  </td>
+                  <td>
+                    {{ solicitud.fechaCreacion?.toString()?.substring(0, 10) }}
+                  </td>
+                  <td *ngIf="login.idPerfil === 3 && filtroEstado === '1'">
+                    <a
+                      class="btn btn-custom-edit text-link custom-tooltip"
+                      (click)="aprobarSolicitud(solicitud)"
+                      data-tooltip="Aprobar solicitud"
+                    >
+                      <i class="bi bi-check-lg"></i>
+                    </a>
+                    <a
+                      class="btn btn-custom-delete text-link custom-tooltip-right"
+                      (click)="rechazarSolicitud(solicitud)"
+                      (mousemove)="onMouseMove($event)"
+                      data-tooltip="Rechazar solicitud"
+                    >
+                      <i class="bi bi-x-lg"></i>
+                    </a>
+                  </td>
+                  <td
+                    *ngIf="
+                      (login.idPerfil === 4 && solicitud.estado === 2) ||
+                      (login.idPerfil === 3 && filtroEstado === '2')
+                    "
+                  >
+                    <a
+                      class="btn btn-custom-edit text-link custom-tooltip"
+                      (click)="verPrestamo(solicitud)"
+                      data-tooltip="Ir a Préstamo"
+                    >
+                      <i class="bi bi-arrow-up-right"></i>
+                    </a>
+                  </td>
+                  <td
+                    *ngIf="
+                      (login.idPerfil === 4 && solicitud.estado === 3) ||
+                      ((login.idPerfil === 3 ||
+                        login.idPerfil === 2 ||
+                        login.idPerfil === 1) &&
+                        filtroEstado === '3')
+                    "
+                  >
+                    <a
+                      class="btn btn-custom-edit text-link custom-tooltip"
+                      (click)="verMotivoRechazo(solicitud)"
+                      data-tooltip="Ver motivo de Rechazo"
+                    >
+                      <i class="bi bi-backspace-reverse-fill"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

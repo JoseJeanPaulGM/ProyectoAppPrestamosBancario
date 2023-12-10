@@ -1,8 +1,5 @@
-import { Cliente } from './cliente';
-
-export class Solitud {
+export class SolicitudList {
   idSolicitud?: number;
-  idPrestatario?: number;
   idPrestamista?: number;
   monto?: number;
   concepto?: string;
@@ -12,4 +9,7 @@ export class Solitud {
   observaciones?: string;
   estado?: number;
   usuarioCreacion?: string;
+  fechaCreacion?: string;
+  usuarioModificacion?: string;
+  fechaModificacion?: string;
 }
