@@ -1,0 +1,163 @@
+<div class="container h-100">
+  <div class="row justify-content-sm-center h-100">
+    <div
+      [ngClass]="{
+        'col-xxl-9': login.idPerfil === 4,
+        'col-xxl-11': login.idPerfil !== 4
+      }"
+    >
+      <div class="card shadow-lg py-2">
+        <div class="card-body p-5">
+          <h1 class="fs-3 card-title fw-bold mb-3 text-center">
+            Préstamos Aprobados
+          </h1>
+          <p class="text-center">
+            <img src="../../../assets/money.png" alt="" width="75px" />
+          </p>
+          <div class="row col-lg-12">
+            <div *ngIf="login.idPerfil !== 2" class="col-lg-4 mb-3">
+              <label class="mb-2 mx-1 form-label" for="email">Estado:</label>
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                name="filtroEstado"
+                (change)="filtrarPrestamos()"
+                [(ngModel)]="filtroEstado"
+              >
+                <option selected value="0">Todos</option>
+                <option value="1">Aprobados</option>
+                <option value="2">Pagados</option>
+              </select>
+            </div>
+            <div *ngIf="login.idPerfil === 2" class="col-lg-4 mb-3">
+              <label class="mb-2 mx-1 form-label" for="email"
+                >Prestamista:</label
+              >
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                name="filtroPrestamista"
+                (change)="filtrarPrestamosByPrestamista()"
+                [(ngModel)]="filtroPrestamista"
+              >
+                <option selected value="0">Todos</option>
+                <option
+                  *ngFor="let prestamista of this.listaPrestamistas"
+                  [value]="prestamista.idPrestamista"
+                >
+                  {{
+                    prestamista.nombres +
+                      " " +
+                      prestamista.apellidoPaterno +
+                      " " +
+                      prestamista.apellidoMaterno
+                  }}
+                </option>
+              </select>
+            </div>
+            <div *ngIf="login.idPerfil === 2" class="col-lg-8 mb-3">
+              <div class="row container-dw">
+                <div class="col-lg-4 container-dw">
+                  <a
+                    class="btn btn-dw-excel text-link"
+                    (click)="exportarComoExcel()"
+                  >
+                    <i class="bi bi-file-earmark-text-fill"> </i>
+                    Excel
+                  </a>
+                  <a
+                    class="btn btn-dw-pdf text-link"
+                    (click)="exportarComoPDF()"
+                  >
+                    <i class="bi bi-file-earmark-text-fill"> </i>
+                    PDF
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table
+              id="tblPrestamos"
+              class="table caption-top table-sm table-hover"
+            >
+              <thead class="text-center">
+                <tr>
+                  <th scope="col" colspan="1">Id</th>
+                  <th
+                    *ngIf="login.idPerfil != 4 && login.idPerfil !== 2"
+                    scope="col"
+                  >
+                    Cliente
+                  </th>
+                  <th *ngIf="login.idPerfil === 2" scope="col">Prestamista</th>
+                  <th scope="col">Monto(S/.)</th>
+                  <th *ngIf="login.idPerfil === 2" scope="col">Pagado(S/.)</th>
+                  <th *ngIf="login.idPerfil === 2" scope="col">
+                    Pendiente(S/.)
+                  </th>
+                  <th scope="col">Nro. Cuotas</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Rentabilidad</th>
+                  <th scope="col">Fecha Registro</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody class="text-center">
+                <tr *ngFor="let prestamo of listaPrestamos">
+                  <th scope="row">{{ prestamo.idPrestamo }}</th>
+                  <td *ngIf="login.idPerfil != 4 && login.idPerfil !== 2">
+                    {{ prestamo.solicitud?.usuarioCreacion }}
+                  </td>
+                  <td *ngIf="login.idPerfil === 2">
+                    {{
+                      obtenerPrestamista(prestamo.idPrestamista || 0).nombres +
+                        " " +
+                        obtenerPrestamista(prestamo.idPrestamista || 0)
+                          .apellidoPaterno
+                    }}
+                  </td>
+                  <td>{{ prestamo.solicitud?.monto?.toFixed(2) }}</td>
+                  <td *ngIf="login.idPerfil === 2">
+                    {{ montoPagado(prestamo.cuotasPrestamo || []) }}
+                  </td>
+                  <td *ngIf="login.idPerfil === 2">
+                    {{ montoPendiente(prestamo.cuotasPrestamo || []) }}
+                  </td>
+                  <td>{{ prestamo.numeroCuotas }}</td>
+
+                  <td>
+                    <span
+                      class="badge rounded-pill"
+                      [ngClass]="{
+                        'text-bg-warning': prestamo.estado === 1,
+                        'text-bg-info': prestamo.estado === 2,
+                        'text-bg-danger':
+                          prestamo.estado !== 1 && prestamo.estado !== 2
+                      }"
+                    >
+                      {{ prestamo.estado === 1 ? "Aprobado" : "Pagado" }}
+                    </span>
+                  </td>
+                  <td>{{ "20% " }}</td>
+                  <td>
+                    {{ prestamo.fechaCreacion?.toString()?.substring(0, 10) }}
+                  </td>
+                  <td>
+                    <a
+                      class="btn btn-custom-edit text-link custom-tooltip"
+                      (click)="verCuotas(prestamo)"
+                      data-tooltip="Ver cuotas"
+                    >
+                      <i class="bi bi-bar-chart-fill"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

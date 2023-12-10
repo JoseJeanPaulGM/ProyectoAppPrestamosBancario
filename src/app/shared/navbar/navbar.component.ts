@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { set } from 'date-fns';
-import { el, is } from 'date-fns/locale';
 import { LoginService } from 'src/app/services/login.service';
 import { SpinnerService } from 'src/app/services/spinner.service';
 
@@ -20,9 +18,7 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     private loginService: LoginService,
     private spinnerService: SpinnerService
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     this.loginService.getMenus().subscribe((data: any) => {
       if (data.length > 0) {
         this.listaMenus = data;
@@ -32,19 +28,25 @@ export class NavbarComponent implements OnInit {
       if (data === false) {
         this.listaMenus = [];
         this.isAuthenticated = false;
-        console.log('Entró False', this.isAuthenticated);
       } else {
         this.isAuthenticated = true;
         let jsonText = localStorage.getItem('login');
         let login = JSON.parse(jsonText ? jsonText : '');
-        this.nombreUsuario = login.idPerfil === 4 ? login.nombres : login.email;
+        this.nombreUsuario =
+          login.idPerfil === 4 ? login.persona.nombres : login.email;
         this.idPerfil = login.idPerfil;
       }
     });
   }
 
+  ngOnInit(): void {}
+
   irAlInicio() {
-    this.router.navigate(['/principal']);
+    if (this.idPerfil === 4) {
+      this.router.navigate(['/principal']);
+    } else {
+      this.router.navigate(['/consulta-solicitud']);
+    }
   }
 
   irAlRegistro() {

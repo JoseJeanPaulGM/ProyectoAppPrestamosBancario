@@ -12,26 +12,56 @@ import { RegistroJefePrestamistaComponent } from './components/registro-jefe-pre
 import { ListadoGruposComponent } from './components/listado-grupos/listado-grupos.component';
 import { ListadoPrestamistaComponent } from './components/listado-prestamista/listado-prestamista.component';
 import { ListadoJefePrestamistaComponent } from './components/listado-jefe-prestamista/listado-jefe-prestamista.component';
+import { ConsultaSolicitudComponent } from './components/consulta-solicitud/consulta-solicitud.component';
+import { ConsultaPrestamoComponent } from './components/consulta-prestamo/consulta-prestamo.component';
+import { ConsultaCuotasComponent } from './components/consulta-cuotas/consulta-cuotas.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/principal', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
-  { path: 'resgitro-prestamista', component: RegistroPrestamistaComponent },
+  {
+    path: 'consulta-solicitud',
+    component: ConsultaSolicitudComponent,
+  },
+  {
+    path: 'consulta-prestamo',
+    component: ConsultaPrestamoComponent,
+  },
+  {
+    path: 'resgitro-prestamista',
+    component: RegistroPrestamistaComponent,
+  },
   {
     path: 'registro-jefe-prestamista',
     component: RegistroJefePrestamistaComponent,
   },
-  { path: 'listado-grupos', component: ListadoGruposComponent },
-  { path: 'listado-prestamista', component: ListadoPrestamistaComponent },
+  {
+    path: 'listado-grupos',
+    component: ListadoGruposComponent,
+  },
+  {
+    path: 'listado-prestamista',
+    component: ListadoPrestamistaComponent,
+  },
   {
     path: 'listado-jefe-prestamista',
     component: ListadoJefePrestamistaComponent,
   },
 
   // { path: 'solicitud', component: SolicitudComponent, canActivate: [LoginGuard] },
-  { path: 'solicitud', component: SolicitudComponent },
-  { path: 'principal', component: PrincipalComponent },
+  {
+    path: 'solicitud',
+    component: SolicitudComponent,
+  },
+  {
+    path: 'consulta-cuotas/:idPrestamo',
+    component: ConsultaCuotasComponent,
+  },
+  {
+    path: 'principal',
+    component: PrincipalComponent,
+  },
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: '/not-found' },
 ];

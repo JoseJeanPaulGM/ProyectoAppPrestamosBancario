@@ -11,7 +11,7 @@
           </p>
           <form>
             <div class="row col-md-12">
-              <div class="col-lg-3 mb-3">
+              <div class="col-lg-6 mb-3">
                 <label class="mb-2 text-muted form-label" for="nombres"
                   >Nombres:</label
                 >
@@ -55,20 +55,6 @@
                 />
                 <div class="invalid-feedback">Usuario es requerido</div>
               </div>
-              <div class="col-lg-3 mb-3">
-                <label class="mb-2 text-muted form-label" for="telefono"
-                  >Teléfono:</label
-                >
-                <input
-                  id="telefono"
-                  type="text"
-                  class="form-control"
-                  name="telefono"
-                  [(ngModel)]="usuario.persona.telefono"
-                  required
-                />
-                <div class="invalid-feedback">Usuario es requerido</div>
-              </div>
             </div>
             <div class="row col-md-12">
               <div class="col-lg-3 mb-3">
@@ -81,7 +67,7 @@
                   [(ngModel)]="usuario.persona.tipoDocumento"
                   name="tipoDocumento"
                 >
-                  <option selected="1">DNI</option>
+                  <option selected value="1">DNI</option>
                   <option value="2">CE</option>
                   <option value="3">RUC</option>
                 </select>
@@ -132,15 +118,62 @@
                 <div class="invalid-feedback">Usuario es requerido</div>
               </div>
               <div class="col-lg-3 mb-3">
+                <label class="mb-2 text-muted form-label" for="telefono"
+                  >Teléfono:</label
+                >
+                <input
+                  id="telefono"
+                  type="text"
+                  class="form-control"
+                  name="telefono"
+                  [(ngModel)]="usuario.persona.telefono"
+                  required
+                />
+                <div class="invalid-feedback">Usuario es requerido</div>
+              </div>
+              <div class="col-lg-3 mb-3">
                 <label class="mb-2 text-muted form-label" for="contrasena"
                   >Contraseña:</label
                 >
                 <input
                   id="contrasena"
-                  type="text"
+                  type="password"
                   class="form-control"
                   name="contrasena"
                   [(ngModel)]="usuario.contrasena"
+                  required
+                />
+                <div class="invalid-feedback">Usuario es requerido</div>
+              </div>
+            </div>
+            <div class="row col-md-12">
+              <div class="col-lg-3 mb-3">
+                <label class="mb-2 text-muted form-label" for="banco"
+                  >Banco:</label
+                >
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  [(ngModel)]="usuario.banco"
+                  name="banco"
+                >
+                  <option value="1">Banco de Crédito</option>
+                  <option selected value="2">BBVA Continental</option>
+                  <option value="3">Banco Interbank</option>
+                  <option value="4">Scotiabank</option>
+                </select>
+                <div class="invalid-feedback">Usuario es requerido</div>
+              </div>
+              <div class="col-lg-4 mb-3">
+                <label class="mb-2 text-muted form-label" for="numeroCuenta"
+                  >Nro de Cuenta:</label
+                >
+                <input
+                  id="numeroCuenta"
+                  type="text"
+                  class="form-control"
+                  name="numeroCuenta"
+                  [(ngModel)]="usuario.numeroCuenta"
                   required
                 />
                 <div class="invalid-feedback">Usuario es requerido</div>
@@ -155,7 +188,7 @@
         </div>
         <div class="py-1">
           <div class="text-center">
-            Ya eres cliente?
+            ¿Ya eres cliente?
             <a class="text-dark text-link" (click)="irASolitudPrestamo()"
               >¡Solicita tu prestamos!</a
             >

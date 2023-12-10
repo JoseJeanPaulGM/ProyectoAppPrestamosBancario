@@ -1,9 +1,14 @@
-export interface CuotaPrestamo {
-  idPrestamo?: number;
+export class CuotaPrestamo {
+  idCuotaPrestamo?: number;
   numeroCuota?: number;
-  fechaVencimiento?: string;
   monto?: number;
+  montoPagado?: number;
+  montoPendiente?: number;
   interes?: number;
-  amortizacion?: number;
-  saldo?: number;
+  fechaVencimiento?: string;
+  estado?: number;
+  usuarioCreacion?: string;
+  fechaRegistro?: string;
+  usuarioModificacion?: string;
+  fechaModificacion?: string;
 }

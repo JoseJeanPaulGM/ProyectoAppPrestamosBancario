@@ -21,6 +21,11 @@ import { ListadoPrestamistaComponent } from './components/listado-prestamista/li
 import { ListadoJefePrestamistaComponent } from './components/listado-jefe-prestamista/listado-jefe-prestamista.component';
 import { RegistroJefePrestamistaComponent } from './components/registro-jefe-prestamista/registro-jefe-prestamista.component';
 import { GruposComponent } from './components/grupos/grupos.component';
+import { ConsultaPrestamoComponent } from './components/consulta-prestamo/consulta-prestamo.component';
+import { ConsultaSolicitudComponent } from './components/consulta-solicitud/consulta-solicitud.component';
+import { ConsultaCuotasComponent } from './components/consulta-cuotas/consulta-cuotas.component';
+import { CuentasBancariasComponent } from './components/cuentas-bancarias/cuentas-bancarias.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -38,6 +43,10 @@ import { GruposComponent } from './components/grupos/grupos.component';
     ListadoPrestamistaComponent,
     ListadoJefePrestamistaComponent,
     RegistroJefePrestamistaComponent,
+    ConsultaPrestamoComponent,
+    ConsultaSolicitudComponent,
+    ConsultaCuotasComponent,
+    CuentasBancariasComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +55,7 @@ import { GruposComponent } from './components/grupos/grupos.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
   ],
 
   providers: [LoginService],

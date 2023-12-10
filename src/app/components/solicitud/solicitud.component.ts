@@ -1,34 +1,29 @@
-import { Component } from '@angular/core';
-import { Usuario } from 'src/app/interfaces/usuario';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import { Solitud } from 'src/app/interfaces/solitud';
 import Swal from 'sweetalert2';
 import { CuotaPrestamo } from 'src/app/interfaces/cuota-prestamo';
 import { format } from 'date-fns';
-import { el } from 'date-fns/locale';
+
+import { PrestamoService } from 'src/app/services/prestamo.service';
+import { SolicitudService } from 'src/app/services/solicitud.service';
+import { CuentasBancariasService } from 'src/app/services/cuentas-bancarias.service';
+import { CuentasBancarias } from 'src/app/interfaces/cuenta-bancaria';
 
 @Component({
   selector: 'app-solicitud',
   templateUrl: './solicitud.component.html',
   styleUrls: ['./solicitud.component.scss'],
 })
-export class SolicitudComponent {
-  montoSolicitado = '1000'; // Valor inicial del rango
-  montoSolicitadoRange = 1000;
+export class SolicitudComponent implements OnInit {
+  montoSolicitado = '5,000'; // Valor inicial del rango
+  montoSolicitadoRange = 5000;
   montoTotalSimulacion: number = 0;
+  login: any;
+  numeroCuotas: number = 12;
 
-  listaCuotasDefault: CuotaPrestamo[] = [
-    {
-      idPrestamo: 0,
-      numeroCuota: 1,
-      fechaVencimiento: new Date().toISOString().slice(0, 10),
-      monto: 0,
-      interes: 0,
-      amortizacion: 0,
-      saldo: 0,
-    },
-  ];
+  entidadBancaria: string = '2';
 
   rbt06cuotas = false;
   rbt12cuotas = true;
@@ -38,8 +33,119 @@ export class SolicitudComponent {
   selectedModelValue06: string = '12'; // Variable para almacenar el valor seleccionado
   selectedValue: string = '12'; // Variable para almacenar el valor seleccionado
 
+  cuenta: CuentasBancarias = {
+    idCuentaBancaria: 0,
+    idUsuario: 0,
+    numeroCuenta: '',
+    banco: '2',
+    estado: 1,
+  };
+
+  listaCuentasBancarias: CuentasBancarias[] = [];
+
+  solitud: Solitud = {
+    idSolicitud: 0,
+    idPrestatario: 0,
+    idPrestamista: 0,
+    monto: 0,
+    concepto: '1',
+    interes: 60,
+    cantidadCuotas: 0,
+    cuentaBancaria: '',
+    observaciones: '',
+    estado: 1,
+    usuarioCreacion: '',
+  };
+
+  listaCuotasDefault: CuotaPrestamo[] = [
+    {
+      numeroCuota: 1,
+      fechaVencimiento: new Date().toISOString().slice(0, 10),
+      monto: 0,
+      interes: 0,
+    },
+  ];
+
+  @ViewChild('modalCuentasBancarias') modalCuentasBancarias: ElementRef;
+
+  constructor(
+    private loginService: LoginService,
+    private router: Router,
+    private solicitudService: SolicitudService,
+    private prestamoService: PrestamoService,
+    private cuentasBancariasService: CuentasBancariasService
+  ) {
+    this.modalCuentasBancarias = ElementRef.prototype;
+    this.loginService.getAuthenticated().subscribe((data) => {
+      if (data) {
+        let jsonText = localStorage.getItem('login');
+        this.login = JSON.parse(jsonText ? jsonText : '');
+      } else {
+        this.router.navigate(['/login']);
+      }
+    });
+    console.log(this.login);
+    this.cuentasBancariasService
+      .getCuentaBancaria(this.login.idUsuario)
+      .subscribe(
+        (response) => {
+          console.log(response);
+          this.listaCuentasBancarias = response.data;
+          this.solitud.cuentaBancaria =
+            this.listaCuentasBancarias[0].numeroCuenta || '';
+          this.entidadBancaria = this.listaCuentasBancarias[0].banco || '2';
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+  ngOnInit(): void {
+    this.listaCuotasDefault = [];
+    this.listaCuotasDefault = this.calcularCuotas(
+      this.montoSolicitadoRange,
+      0.6,
+      12,
+      new Date()
+    );
+  }
+
+  cuentasBancarias() {}
+
+  agregarCuenta() {
+    if (this.cuenta.numeroCuenta!.length < 1) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error de validación',
+        text: 'Por favor, ingresa un número de cuenta.',
+      });
+      return; // Detén la ejecución
+    }
+
+    this.cuenta.idUsuario = this.login.idUsuario;
+
+    console.log(this.cuenta);
+
+    this.cuentasBancariasService.createCuentaBancaria(this.cuenta).subscribe(
+      (response) => {
+        console.log(response);
+        this.listaCuentasBancarias.push(response.data);
+        this.modalCuentasBancarias.nativeElement.click();
+        this.solitud.cuentaBancaria = response.data.numeroCuenta;
+        this.entidadBancaria = response.data.banco;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  cuentaSeleccionada(banco: any) {
+    this.entidadBancaria = banco.banco;
+    this.solitud.cuentaBancaria = banco.numeroCuenta;
+  }
+
   actualizarValorRango(event: any) {
-    // this.montoSolicitado = event.target.value;
     this.montoSolicitado = this.formatNumberWithCommas(
       Number(event.target.value)
     );
@@ -69,10 +175,22 @@ export class SolicitudComponent {
 
   calcularCuota(event: any) {
     this.styleSelected(event.target.textContent);
+    this.numeroCuotas = Number(event.target.textContent);
   }
 
   formatNumberWithCommas(value: number): string {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  simularPrestamo() {
+    this.listaCuotasDefault = [];
+    console.log(this.listaCuotasDefault);
+    this.listaCuotasDefault = this.calcularCuotas(
+      this.montoSolicitadoRange,
+      (this.solitud.interes || 60) / 100,
+      this.numeroCuotas,
+      new Date()
+    );
   }
 
   calcularCuotas(
@@ -82,7 +200,7 @@ export class SolicitudComponent {
     fechaInicio: Date
   ): CuotaPrestamo[] {
     console.log(montoTotal, porcentajeInteres, numeroCuotas, fechaInicio);
-
+    this.montoTotalSimulacion = 0;
     const tasaInteresMensual = porcentajeInteres / 12; // Interés anual
 
     const cuotaMensual =
@@ -94,67 +212,13 @@ export class SolicitudComponent {
 
     for (let cuota = 1; cuota <= numeroCuotas; cuota++) {
       const interesMensual = montoTotal * tasaInteresMensual;
-      const amortizacion = cuotaMensual - interesMensual;
-      const fechaSolicitud = new Date(fechaInicio);
+      const capital = cuotaMensual - interesMensual;
       const fechaVencimiento = new Date(fechaInicio);
 
       fechaVencimiento.setMonth(fechaVencimiento.getMonth() + cuota);
-      // fechaSolicitud.setMonth(fechaSolicitud.getMonth() + 1 + cuota);
-
-      // console.log(
-      //   'Diferencias días: ' + cuota,
-      //   fechaSolicitud.getDate() + 1,
-      //   fechaSolicitud.getMonth() + 1,
-      //   fechaVencimiento.getMonth() + 1
-      // );
-
-      // if (
-      //   fechaSolicitud.getDate() + 1 === 31 &&
-      //   fechaSolicitud.getMonth() !== fechaVencimiento.getMonth()
-      // ) {
-      //   fechaVencimiento.setDate(1);
-      // } else if (
-      //   fechaSolicitud.getDate() + 1 === 28 &&
-      //   fechaSolicitud.getMonth() !== fechaVencimiento.getMonth()
-      // ) {
-      //   fechaVencimiento.setDate(3);
-      // } else if (
-      //   fechaSolicitud.getDate() + 1 === 29 &&
-      //   fechaSolicitud.getMonth() !== fechaVencimiento.getMonth()
-      // ) {
-      //   fechaVencimiento.setDate(2);
-      // }
-
-      console.log(
-        fechaInicio.getMonth() + 1,
-        fechaVencimiento.getMonth(),
-        fechaVencimiento.getDate() + 1
-      );
-
-      // if (
-      //   fechaInicio.getMonth()+1 === 2 &&
-      //   fechaVencimiento.getDate() + 1 === 28
-      // ) {
-      //   console.log('fechaVencimiento === 28', fechaVencimiento.getDate());
-      //   fechaVencimiento.setDate(fechaVencimiento.getDate() + 3);
-      // } else if (
-      //   fechaVencimiento.getMonth() === 2 &&
-      //   fechaVencimiento.getDate() + 1 === 29
-      // ) {
-      //   console.log('fechaVencimiento === 29', fechaVencimiento.getDate());
-      //   fechaVencimiento.setDate(fechaVencimiento.getDate() + 2);
-      // } else if (fechaVencimiento.getDate() + 1 === 30) {
-      //   console.log('fechaVencimiento === 30', fechaVencimiento.getDate());
-      //   fechaVencimiento.setDate(fechaVencimiento.getDate() + 1);
-      // } else {
-      //   console.log('fechaVencimiento === 31', fechaVencimiento.getDate());
-      //   fechaVencimiento.setDate(fechaVencimiento.getDate());
-      // }
-
       this.montoTotalSimulacion += Number(cuotaMensual.toFixed(2));
 
       cuotas.push({
-        idPrestamo: 0,
         numeroCuota: cuota,
         fechaVencimiento: format(
           fechaVencimiento.setDate(
@@ -165,60 +229,99 @@ export class SolicitudComponent {
           'dd-MM-yyyy'
         ),
         monto: Number(cuotaMensual.toFixed(2)),
-        interes: interesMensual,
-        amortizacion: amortizacion,
-        saldo: montoTotal,
+        interes: Number(interesMensual.toFixed(2)),
       });
 
-      montoTotal -= amortizacion;
+      montoTotal -= capital;
     }
 
+    console.log(cuotas);
     return cuotas;
   }
 
-  usuario: Usuario = {
-    email: '',
-    contrasena: '',
-    persona: {
-      nombres: 'Jacinto',
-      apellidoPaterno: '',
-      apellidoMaterno: '',
-      numeroDocumento: '',
-      direccion: '',
-      telefono: '',
-      email: '',
-      estado: 1,
-      tipoDocumento: 1,
-    },
-    estado: 1,
-    idPerfil: 3,
-  };
+  registrarSolicitud() {
+    //Validar si el usuario tiene solictudes pendientes y prestamos activos
+    this.prestamoService
+      .validarPrestamo(this.login.idUsuario)
+      .subscribe((response) => {
+        console.log('Validación de Préstamo', response);
+        if (response.success === true) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Validación de Solicitud',
+            text: response.message,
+          });
 
-  solitud: Solitud = {
-    idSolicitud: 0,
-    monto: 0,
-    cuotas: 0,
-    fecha: '',
-    estado: 1,
-  };
-  constructor() {}
-  ngOnInit(): void {
-    this.listaCuotasDefault = this.calcularCuotas(
-      this.montoSolicitadoRange,
-      0.59,
-      12,
-      new Date()
-    );
+          if (response.data.idPrestamo > 0) {
+            this.router.navigate(['/consulta-prestamo']);
+          } else {
+            this.router.navigate(['/consulta-solicitud']);
+          }
+        } else {
+          //registrar solicitud
+          this.solitud.idPrestatario = this.login.idUsuario;
+          this.solitud.idPrestamista = 0;
+          this.solitud.monto = this.montoSolicitadoRange;
 
-    // Swal.fire({
-    //   title: 'Lo sentimos...',
-    //   text: 'Usted ya cuenta con un prestamos activo.',
-    //   icon: 'info',
-    //   confirmButtonText: 'Aceptar',
-    //   confirmButtonColor: '#197566',
-    // });
+          this.solitud.cantidadCuotas = this.numeroCuotas;
+          this.solitud.usuarioCreacion = this.login.email;
+          this.solitud.estado = 1;
+          this.solitud.interes = (this.solitud.interes || 70) / 100;
+
+          if (this.solitud.monto < 1000) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error de validación',
+              text: 'El monto solicitado debe ser mayor a 1000 soles.',
+            });
+            return; // Detén la ejecución
+          }
+
+          if (
+            !this.solitud.cuentaBancaria ||
+            this.solitud.cuentaBancaria.length < 1
+          ) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error de validación',
+              text: 'Por favor, seleccione una cuenta bancaria.',
+            });
+            return; // Detén la ejecución
+          }
+
+          const concepto =
+            this.solitud.concepto === '1'
+              ? 'Préstamos Personal'
+              : this.solitud.concepto === '2'
+              ? 'Préstamo Educación'
+              : this.solitud.concepto === '3'
+              ? 'Préstamo Vehicular'
+              : 'Otros fines';
+
+          this.solitud.concepto = concepto;
+          //invoca al servicio
+          this.solicitudService.createSolicitud(this.solitud).subscribe(
+            (response) => {
+              console.log(response);
+              Swal.fire({
+                icon: 'success',
+                title: 'Solicitud registrada',
+                text: 'Su solicitud ha sido registrada con éxito.',
+              });
+              this.router.navigate(['/consulta-solicitud']);
+            },
+            (error) => {
+              console.log(error);
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Ocurrió un error al registrar la solicitud.',
+              });
+            }
+          );
+        }
+      });
   }
-
   styleSelected(input: string) {
     switch (input) {
       case '06':

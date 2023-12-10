@@ -10,6 +10,26 @@ export class SolicitudService {
 
   constructor(private http: HttpClient) {}
 
+  getSolicitudes(): Observable<any> {
+    return this.http.get(this.apiUrl + '/listar');
+  }
+
+  getSolicitudesByEstado(estado: string): Observable<any> {
+    return this.http.get(this.apiUrl + '/solicitudes/' + estado);
+  }
+
+  getSolicitudesByPrestamista(id: number): Observable<any> {
+    return this.http.get(this.apiUrl + '/prestamista/' + id);
+  }
+
+  getSolicitudesByCliente(id: number): Observable<any> {
+    return this.http.get(this.apiUrl + '/cliente/' + id);
+  }
+
+  getSolicitudesByJefePrestamista(id: number): Observable<any> {
+    return this.http.get(this.apiUrl + '/jefePrestamista/' + id);
+  }
+
   getSolicitudes() {
     return this.http.get(this.apiUrl + '/solicitudes');
   }
@@ -22,11 +42,32 @@ export class SolicitudService {
     return this.http.post(this.apiUrl + '/registrar', solicitud);
   }
 
-  updateSolicitud(solicitud: any) {
+  updateSolicitud(solicitud: any): Observable<any> {
     return this.http.put(this.apiUrl + '/actualizar', solicitud);
   }
 
-  deleteSolicitud(id: number) {
+  aprobarSolicitud(
+    idSolicitud: number,
+    SolicitudPrestamo: any
+  ): Observable<any> {
+    return this.http.put(
+      this.apiUrl + '/aprobar/' + idSolicitud,
+      SolicitudPrestamo
+    );
+  }
+
+  rechazarSolicitud(
+    idSolicitud: number,
+    SolicitudPrestamo: any
+  ): Observable<any> {
+    return this.http.put(
+      this.apiUrl + '/rechazar/' + idSolicitud,
+      SolicitudPrestamo
+    );
+  }
+
+  deleteSolicitud(id: number): Observable<any> {
     return this.http.delete(this.apiUrl + '/eliminar/' + id);
   }
 }
+

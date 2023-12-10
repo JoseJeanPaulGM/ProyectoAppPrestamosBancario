@@ -3,14 +3,20 @@
     <div
       class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center"
     >
-      <a class="navbar-brand p-0 me-0 me-lg-2" href="/" aria-label="Bootstrap">
+      <a
+        class="navbar-brand p-0 me-0 me-lg-2 cursor-pointer"
+        (click)="irAlInicio()"
+        aria-label="Bootstrap"
+      >
         <img src="../../../assets/send.png" width="40px" alt="P icon" />
       </a>
       <ul
         class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
       >
         <li>
-          <a href="#" class="nav-link px-2 text-white" (click)="irAlInicio()"
+          <a
+            class="nav-link px-2 text-white cursor-pointer"
+            (click)="irAlInicio()"
             >GotaChash</a
           >
         </li>
@@ -58,6 +64,7 @@
         >
           Regístrate
         </button>
+
         <button
           type="button"
           class="btn btn-light"

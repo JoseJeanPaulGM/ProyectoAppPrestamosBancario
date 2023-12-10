@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class CuentasBancariasService {
 
-  private apiUrl = 'http://localhost:9088/api/v1/cuentas-bancarias';
+  private apiUrl = 'http://localhost:8095/api/v1/solicitud';
+
 
   constructor(private http: HttpClient) {}
 
@@ -16,14 +17,16 @@ export class CuentasBancariasService {
   }
 
   getCuentaBancaria(id: number): Observable<any> {
-    return this.http.get(this.apiUrl + '/' + id);
+    return this.http.get(this.apiUrl + '/listarCuenta/' + id);
   }
 
   createCuentaBancaria(cuentaBancaria: any): Observable<any> {
-    return this.http.post(this.apiUrl, cuentaBancaria);
+    return this.http.post(this.apiUrl + '/registrarCuenta', cuentaBancaria);
   }
 
   updateCuentaBancaria(id: number, cuentaBancaria: any): Observable<any> {
     return this.http.put(this.apiUrl + '/' + id, cuentaBancaria);
   }
+
 }
+

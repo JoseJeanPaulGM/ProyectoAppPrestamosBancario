@@ -13,7 +13,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     let jsonText = localStorage.getItem('login');
-    console.log(jsonText);
 
     if (jsonText == null) {
       this.loginService.setAuthenticated(false);

@@ -23,7 +23,15 @@ export class EmpleadoService {
     return this.http.post(this.apiUrl + '/registrar/empleado', empleado);
   }
 
-  updateEmpleado(id: number, empleado: any) {
-    return this.http.put(this.apiUrl + '/actualizar/empleado/' + id, empleado);
+  updateEmpleado(empleado: any) {
+    return this.http.put(this.apiUrl + '/actualizar', empleado);
+  }
+  deleteEmpleado(id: number) {
+    return this.http.delete(this.apiUrl + '/eliminar/' + id);
+  }
+
+  //Obtener Prestamistas por Id de Jefe Prestamista
+  getPrestamistasByJefePrestamista(id: number) {
+    return this.http.get(this.apiUrl + '/prestamistas/' + id);
   }
 }

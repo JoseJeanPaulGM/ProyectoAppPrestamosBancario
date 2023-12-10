@@ -7,22 +7,45 @@ import {
   Router,
 } from '@angular/router';
 import { LoginService } from '../services/login.service';
+import { Observable } from 'rxjs';
+import { SpinnerService } from '../services/spinner.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginGuard implements CanActivate {
-  constructor(private loginService: LoginService, private router: Router) {}
+  isAuthenticated: boolean = false;
+  constructor(
+    private loginService: LoginService,
+    private router: Router,
+    private spinnerService: SpinnerService
+  ) {}
 
   canActivate(
-    route: ActivatedRouteSnapshot,
+    next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): boolean | UrlTree {
-    if (this.loginService.getAuthenticated()) {
-      return true; // El usuario está autenticado y puede acceder al componente "dashboard"
-    } else {
-      // El usuario no está autenticado, redirige al componente de inicio de sesión "login"
-      return this.router.createUrlTree(['/principal']);
-    }
+  ):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
+    this.spinnerService.activateSpinner();
+    this.loginService.getAuthenticated().subscribe((res) => {
+      if (res) {
+        this.isAuthenticated = true;
+      } else {
+        // this.router.navigate(['/login']);
+        this.isAuthenticated = false;
+      }
+    });
+    this.spinnerService.deactivateSpinner();
+    return true;
+    return this.isAuthenticated;
+    // if (this.loginService.getAuthenticated()) {
+    //   return true;
+    // } else {
+    //   this.router.navigate(['/login']);
+    //   return false;
+    // }
   }
 }
