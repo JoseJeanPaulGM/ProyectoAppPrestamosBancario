@@ -6,7 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CuentasBancariasService {
+
   private apiUrl = 'http://localhost:8095/api/v1/solicitud';
+
 
   constructor(private http: HttpClient) {}
 
@@ -25,4 +27,6 @@ export class CuentasBancariasService {
   updateCuentaBancaria(id: number, cuentaBancaria: any): Observable<any> {
     return this.http.put(this.apiUrl + '/' + id, cuentaBancaria);
   }
+
 }
+
