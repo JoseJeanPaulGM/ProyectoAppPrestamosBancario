@@ -97,8 +97,10 @@
                     Pendiente(S/.)
                   </th>
                   <th scope="col">Nro. Cuotas</th>
+                  <th scope="col">C. Pagadas</th>
+                  <th scope="col">C. Pendientes</th>
                   <th scope="col">Estado</th>
-                  <th scope="col">Rentabilidad</th>
+                  <th *ngIf="login.idPerfil === 2" scope="col">Rentabilidad</th>
                   <th scope="col">Fecha Registro</th>
                   <th></th>
                 </tr>
@@ -125,6 +127,14 @@
                     {{ montoPendiente(prestamo.cuotasPrestamo || []) }}
                   </td>
                   <td>{{ prestamo.numeroCuotas }}</td>
+                  <td *ngIf="login.idPerfil === 4">
+                    {{ cantidadCuotasPagadas(prestamo.cuotasPrestamo || []) }}
+                  </td>
+                  <td *ngIf="login.idPerfil === 4">
+                    {{
+                      cantidadCuotasPendientes(prestamo.cuotasPrestamo || [])
+                    }}
+                  </td>
 
                   <td>
                     <span
@@ -139,7 +149,7 @@
                       {{ prestamo.estado === 1 ? "Aprobado" : "Pagado" }}
                     </span>
                   </td>
-                  <td>{{ "20% " }}</td>
+                  <td *ngIf="login.idPerfil === 2">{{ "20% " }}</td>
                   <td>
                     {{ prestamo.fechaCreacion?.toString()?.substring(0, 10) }}
                   </td>

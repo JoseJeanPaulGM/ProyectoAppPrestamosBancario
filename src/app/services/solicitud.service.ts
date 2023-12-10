@@ -30,10 +30,6 @@ export class SolicitudService {
     return this.http.get(this.apiUrl + '/jefePrestamista/' + id);
   }
 
-  getSolicitudes() {
-    return this.http.get(this.apiUrl + '/solicitudes');
-  }
-
   getSolicitud(id: number) {
     return this.http.get(this.apiUrl + '/solicitudes/' + id);
   }
@@ -70,4 +66,3 @@ export class SolicitudService {
     return this.http.delete(this.apiUrl + '/eliminar/' + id);
   }
 }
-
