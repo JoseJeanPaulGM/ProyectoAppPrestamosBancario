@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
               confirmButtonColor: '#197566',
             });
             if (data.data.idPerfil == 1) {
-              this.router.navigateByUrl('/listado-jefe-prestamista');
+              this.router.navigateByUrl('/consulta-rendimiento');
             } else if (data.data.idPerfil == 2) {
               this.router.navigateByUrl('/listado-prestamista');
             } else if (data.data.idPerfil == 3) {

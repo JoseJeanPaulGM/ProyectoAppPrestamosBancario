@@ -4,7 +4,6 @@ import { LoginComponent } from './components/login/login.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { PrincipalComponent } from './components/principal/principal.component';
 import { LoginService } from './services/login.service';
-import { LoginGuard } from './guards/Login.guard';
 import { RegistroComponent } from './components/registro/registro.component';
 import { SolicitudComponent } from './components/solicitud/solicitud.component';
 import { RegistroPrestamistaComponent } from './components/registro-prestamista/registro-prestamista.component';
@@ -15,6 +14,7 @@ import { ListadoJefePrestamistaComponent } from './components/listado-jefe-prest
 import { ConsultaSolicitudComponent } from './components/consulta-solicitud/consulta-solicitud.component';
 import { ConsultaPrestamoComponent } from './components/consulta-prestamo/consulta-prestamo.component';
 import { ConsultaCuotasComponent } from './components/consulta-cuotas/consulta-cuotas.component';
+import { ConsultaRendimientoComponent } from './components/consulta-rendimiento/consulta-rendimiento.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/principal', pathMatch: 'full' },
@@ -48,8 +48,10 @@ const routes: Routes = [
     path: 'listado-jefe-prestamista',
     component: ListadoJefePrestamistaComponent,
   },
-
-  // { path: 'solicitud', component: SolicitudComponent, canActivate: [LoginGuard] },
+  {
+    path: 'consulta-rendimiento',
+    component: ConsultaRendimientoComponent,
+  },
   {
     path: 'solicitud',
     component: SolicitudComponent,

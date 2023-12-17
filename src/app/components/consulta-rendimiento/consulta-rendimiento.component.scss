@@ -1,0 +1,153 @@
+$primary: #18806e;
+
+button {
+  background-color: $primary; /* Green */
+  border: none;
+  color: white;
+  padding: 11.5px 23.5px;
+  margin-right: 0.53rem;
+  margin-top: 1.68rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16.5px;
+  border-radius: 0.5rem;
+  width: 100%;
+  height: 60%;
+  &:hover {
+    background-color: #197566 !important; /* Green */
+  }
+  &:show {
+    background-color: #197566 !important; /* Green */
+  }
+  &:active {
+    background-color: #197566 !important; /* Green */
+  }
+  &:focus {
+    background-color: #197566 !important; /* Green */
+  }
+}
+.active {
+  background-color: #18806e !important;
+  color: white !important;
+}
+.shadow-lg {
+  box-shadow: 0 0 0 rgb(255, 255, 255) !important;
+  border: white;
+}
+
+.emoji-text {
+  font-family: "Noto Emoji", sans-serif;
+}
+
+.form-label {
+  font-weight: bold;
+}
+
+.modal-dialog {
+  max-width: 70%;
+  margin: 1.75rem auto;
+}
+.modal-header {
+  background-color: #197566 !important;
+  color: white !important;
+}
+
+.btn-modal-primary {
+  background-color: #18806e !important;
+  border-color: #18806e !important;
+  color: white !important;
+  &:hover {
+    background-color: #197566 !important;
+    border-color: #197566 !important;
+  }
+  font-size: 0.95rem;
+  font-weight: bold;
+  margin-left: 0.45rem;
+}
+
+.btn-modal-secondary {
+  background-color: #6c757d !important;
+  border-color: #6c757d !important;
+  color: white !important;
+  &:hover {
+    background-color: #565e64 !important;
+    border-color: #565e64 !important;
+  }
+  font-size: 0.95rem;
+  font-weight: bold;
+  margin-left: 0.45rem;
+}
+
+.text-bg-danger {
+  color: rgb(49, 33, 33) !important;
+}
+.table-responsive {
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+  z-index: 1 !important;
+}
+
+.container-de-la-tabla {
+  z-index: 1;
+}
+
+.container-dw {
+  //alinear los items al final
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.btn-dw-excel {
+  background-color: #196e60;
+  border: none;
+  color: white;
+  text-align: left;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14.5px;
+  border-radius: 0.5rem;
+  width: 40%;
+
+  &:hover {
+    background-color: #176457;
+    color: white;
+  }
+}
+
+.btn-dw-pdf {
+  background-color: #9b2111;
+  border: none;
+  color: white;
+  text-align: left;
+  text-decoration: none;
+  margin-left: 0.3rem;
+  display: inline-block;
+  font-size: 14.5px;
+  border-radius: 0.5rem;
+  width: 40%;
+
+  &:hover {
+    background-color: #aa1c1c;
+    color: white;
+  }
+
+  card-sub-title {
+    font-size: 8px !important;
+    font-weight: bold !important;
+  }
+  .backButton {
+    border-radius: 4px;
+    padding: 8px;
+    border: none;
+    font-size: 16px;
+    background-color: #2eacd1;
+    color: white;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+}

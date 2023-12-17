@@ -34,4 +34,8 @@ export class EmpleadoService {
   getPrestamistasByJefePrestamista(id: number) {
     return this.http.get(this.apiUrl + '/prestamistas/' + id);
   }
+
+  getUsuarioPorPefil(idPerfil: number) {
+    return this.http.get(this.apiUrl + '/perfil/' + idPerfil);
+  }
 }

@@ -91,7 +91,8 @@
                     Cliente
                   </th>
                   <th *ngIf="login.idPerfil === 2" scope="col">Prestamista</th>
-                  <th scope="col">Monto(S/.)</th>
+                  <th scope="col">Prestado(S/.)</th>
+                  <th scope="col">Interes(S/.)</th>
                   <th *ngIf="login.idPerfil === 2" scope="col">Pagado(S/.)</th>
                   <th *ngIf="login.idPerfil === 2" scope="col">
                     Pendiente(S/.)
@@ -122,6 +123,7 @@
                     }}
                   </td>
                   <td>{{ prestamo.solicitud?.monto?.toFixed(2) }}</td>
+                  <td>{{ prestamo.montoInteres?.toFixed(2) }}</td>
                   <td *ngIf="login.idPerfil === 2">
                     {{ montoPagado(prestamo.cuotasPrestamo || []) }}
                   </td>

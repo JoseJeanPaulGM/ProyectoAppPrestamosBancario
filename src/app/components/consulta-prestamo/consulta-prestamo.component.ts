@@ -203,21 +203,23 @@ export class ConsultaPrestamoComponent {
   }
 
   //suma de monto pendiente = monto prestado - monto pagado
-  montoPendiente(cuotas: CuotaPrestamo[], montoPrestado: number) {
-    const total = cuotas.reduce(
-      (suma, cuota) => suma + (cuota.montoPagado ? cuota.montoPagado : 0),
-      0
-    );
-    return (montoPrestado - total).toFixed(2);
-  }
-
-  // montoPendiente(cuotas: any[]) {
+  // montoPendiente(cuotas: CuotaPrestamo[], montoPrestado: number) {
   //   const total = cuotas.reduce(
-  //     (suma, cuota) => suma + (cuota.montoPendiente ? cuota.montoPendiente : 0),
+  //     (suma, cuota) => suma + (cuota.montoPagado ? cuota.montoPagado : 0),
   //     0
   //   );
-  //   return total.toFixed(2);
+  //   console.log('Total', total);
+  //   console.log('Monto Prestado', montoPrestado);
+  //   return (montoPrestado - total).toFixed(2);
   // }
+
+  montoPendiente(cuotas: any[], montoPrestado: number) {
+    const total = cuotas.reduce(
+      (suma, cuota) => suma + (cuota.montoPendiente ? cuota.montoPendiente : 0),
+      0
+    );
+    return total.toFixed(2);
+  }
 
   //suma de monto pagado
   montoPagado(cuotas: any[]) {

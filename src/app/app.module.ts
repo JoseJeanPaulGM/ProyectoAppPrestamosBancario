@@ -25,7 +25,9 @@ import { ConsultaPrestamoComponent } from './components/consulta-prestamo/consul
 import { ConsultaSolicitudComponent } from './components/consulta-solicitud/consulta-solicitud.component';
 import { ConsultaCuotasComponent } from './components/consulta-cuotas/consulta-cuotas.component';
 import { CuentasBancariasComponent } from './components/cuentas-bancarias/cuentas-bancarias.component';
+import { ConsultaRendimientoComponent } from './components/consulta-rendimiento/consulta-rendimiento.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ConsultaSolicitudComponent,
     ConsultaCuotasComponent,
     CuentasBancariasComponent,
+    ConsultaRendimientoComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +59,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    CanvasJSAngularChartsModule,
   ],
 
   providers: [LoginService],
